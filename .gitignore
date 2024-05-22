@@ -1,3 +1,5 @@
 .csv
-.owl
+*.owl
 .DS_Store
+*.csv
+/target/
