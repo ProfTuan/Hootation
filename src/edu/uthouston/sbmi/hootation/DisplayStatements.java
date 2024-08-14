@@ -49,8 +49,13 @@ public class DisplayStatements {
 		
 		//wantsOutput = true;
 		//fileName = "viso-hpv.csv";
-		ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
+                
+                //old OWL API 4
+		//.getInstance().setRenderer(new DLSyntaxObjectRenderer());
 
+                DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
+                ToStringRenderer.setRenderer(()->renderer);
+                
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File("/Users/mac/Desktop/persona.owl"));

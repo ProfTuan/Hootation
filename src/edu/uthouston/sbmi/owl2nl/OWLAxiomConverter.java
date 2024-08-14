@@ -742,6 +742,9 @@ public class OWLAxiomConverter implements OWLAxiomVisitor{
 
 	@Override
 	public void visit(SWRLRule axiom) {
+            
+            
+            
 	}
 
 	//#########################################################
@@ -771,9 +774,13 @@ public class OWLAxiomConverter implements OWLAxiomVisitor{
 	public static void main(String[] args) throws Exception {
 
 
-
-		ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
-		logger.setLevel(Level.FINEST);
+                //OLD OWL API 4
+		//ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
+		
+                DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
+                ToStringRenderer.setRenderer(()->renderer);
+                
+                logger.setLevel(Level.FINEST);
 
 		String ontologyURL = "";
 		//ontologyURL = "http://rpc295.cs.man.ac.uk:8080/repository/download?ontology=http://reliant.teknowledge.com/DAML/Transportation.owl&format=RDF/XML";

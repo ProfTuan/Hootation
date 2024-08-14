@@ -39,8 +39,14 @@ public class GenerateStatements {
 	}
 	public void init(File ontologyFile){
 		nl_statements = new ArrayList<String>();
-		ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
-		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		
+                //old owlapi 4
+                //ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
+		
+                DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
+                ToStringRenderer.setRenderer(()->renderer);
+                
+                OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		try {
 			ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
 

@@ -72,6 +72,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Sets;
+import static java.util.stream.Collectors.toSet;
 
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
@@ -175,10 +176,15 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	public NLGElement asNLGElement(OWLIndividual ce){
 		
 		String typeElement = "";
+                
+                for(OWLClassExpression oce:EntitySearcher.getTypes(ce, sourceOntology).collect(toSet())){
+                   typeElement = oce.toString().toLowerCase();
+                }
+                /* outdated OWL API 4
 		for(OWLClassExpression oce:EntitySearcher.getTypes(ce, sourceOntology)){
 			//System.out.println(oce.toString());
 			typeElement = oce.toString().toLowerCase();
-		}
+		}*/
 		NLGElement nlgElement = ce.accept(this);
 		
 		if(typeElement.isEmpty()){
@@ -193,10 +199,16 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	public NLGElement asNLGElement(OWLIndividual ce, boolean asAppostion){
 	
 		String typeElement = "";
+                
+                for(OWLClassExpression oce:EntitySearcher.getTypes(ce, sourceOntology).collect(toSet())){
+                   typeElement = oce.toString().toLowerCase();
+                }
+                
+                /* old owlapi 4 version
 		for(OWLClassExpression oce:EntitySearcher.getTypes(ce, sourceOntology)){
 			//System.out.println(oce.toString());
 			typeElement = oce.toString().toLowerCase();
-		}
+		}*/
 		NLGElement nlgElement = ce.accept(this);
 		
 		if(typeElement.isEmpty()){
@@ -297,11 +309,21 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 		String strDomain = "";
 		OWLClass oc = null;
 		isSubClassExpression = false;
+                
+                
+                
+                for(OWLClassExpression oce:EntitySearcher.getDomains(ce, sourceOntology).collect(toSet())){
+                    
+                    if(oce.isAnonymous()==false) oc = oce.asOWLClass();
+                    
+                }
+                
+                /* old owlapi 4
 		for(OWLClassExpression oce: EntitySearcher.getDomains(ce, this.sourceOntology)){
 			if(oce.isAnonymous()==false) oc = oce.asOWLClass();
 			
 		}
-		
+		*/
 	
 		
 		if(oc == null){
@@ -316,10 +338,19 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	public NLGElement getRangeExpression(OWLObjectPropertyExpression ce){
 		OWLClass oc = null;
 		isSubClassExpression = false;
+                
+                for(OWLClassExpression oce:EntitySearcher.getDomains(ce, sourceOntology).collect(toSet())){
+                    
+                    if(oce.isAnonymous()==false) oc = oce.asOWLClass();
+                    
+                }
+                
+                /* old owlapi 4
 		for(OWLClassExpression oce: EntitySearcher.getRanges(ce, this.sourceOntology)){
 			if(oce.isAnonymous() == false)oc = oce.asOWLClass();
 		}
-		
+		*/
+                
 		if (oc == null){
 			return null;
 		}
@@ -332,8 +363,7 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	private String getLexicalForm(OWLEntity entity){
 		
 		if(!entity.isBuiltIn()){
-			//System.out.println("LF-here: " + this.getEntityLabel(entity));
-			//System.out.println("LF-iri: " + iriConverter.convert(this.getEntityLabel(entity)));
+			
 			//return iriConverter.convert(this.getEntityLabel(entity));
 			return this.getEntityLabel(entity);
 		}
@@ -993,7 +1023,7 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 				noun = true;
 			} else if(propertyVerbalization.isVerbType()){
 
-				if(filler.isDatatype() && filler.asOWLDatatype().getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI())){
+				if(filler.isOWLDatatype() && filler.asOWLDatatype().getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI())){
 					// "either VERB or not"
 					VPPhraseSpec verb = nlgFactory.createVerbPhrase(propertyVerbalization.getVerbalizationText());
 					phrase.setVerb(verb);
@@ -1299,7 +1329,21 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	
 	public String getEntityLabel(OWLEntity entity){
 		String label = "";
-		
+                StringBuilder sb = new StringBuilder();
+                
+                EntitySearcher.getAnnotations(entity, sourceOntology, df.getRDFSLabel()).forEach(ov->{
+                    
+                    OWLAnnotationValue value = ov.getValue();
+                    
+                    if(value instanceof OWLLiteral){
+                        
+                        sb.append(((OWLLiteral) value).getLiteral());
+                    }
+                    
+                    
+                });
+                
+		/* OLD OWL API 4
 		for(OWLAnnotation a : EntitySearcher.getAnnotations(entity, this.sourceOntology, df.getRDFSLabel())) {
 			OWLAnnotationValue val = a.getValue(); 
 			if(val instanceof OWLLiteral) {
@@ -1307,15 +1351,24 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 				//System.out.println(entity + " labelled " + ((OWLLiteral) val).getLiteral() + " with " + entity.toStringID());   
 			}
 		}
-		
+		*/
 		//System.out.println("Entity: " + entity.toStringID());
 		//System.out.println("Label: " + label);
-		
+               if(sb.isEmpty()){
+                   label = iriConverter.convert(entity.toStringID());
+               }
+               else{
+                   label = sb.toString();
+               }
+               
+		//REMOVED OLD OWL API 4
+                /*
 		if(EntitySearcher.getAnnotations(entity, this.sourceOntology, df.getRDFSLabel()).isEmpty()){
 			//System.out.println("zero getEntityLabel");
 			return iriConverter.convert(entity.toStringID());
 		}
-		
+		*/
+                
 		if(label.trim() == "") label = entity.toStringID();
 		
 		return label;
@@ -1323,7 +1376,21 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	
 	public String getPropertyLabel(OWLDataPropertyExpression property){
 		String label = "";
+                StringBuilder sb = new StringBuilder();
+                EntitySearcher.getAnnotations(property.asOWLDataProperty(), sourceOntology, df.getRDFSLabel()).forEach(ov->{
+                    OWLAnnotationValue value = ov.getValue();
+                    
+                    if(value instanceof OWLLiteral){
+                        //label = ((OWLLiteral) value).getLiteral();
+                        sb.append(((OWLLiteral) value).getLiteral());
+                    }
+                
+                });
+                
+                label = sb.toString().trim();
 		
+                /* 
+                OLD OWLAPI 4
 		for(OWLAnnotation a : EntitySearcher.getAnnotations(property.asOWLDataProperty(), 
 				this.sourceOntology, df.getRDFSLabel())) {
 			OWLAnnotationValue val = a.getValue(); 
@@ -1332,7 +1399,7 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 				//System.out.println(property.toString() + " labelled " + ((OWLLiteral) val).getLiteral() + " with " + property.toString());   
 			}
 		}
-		
+		*/
 		/*if(EntitySearcher.getAnnotations(property.asOWLDataProperty(), 
 				this.sourceOntology, df.getRDFSLabel()).isEmpty()){
 			System.out.println("zero");
@@ -1345,7 +1412,23 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	
 	public String getPropertyLabel(OWLObjectPropertyExpression property){
 		String label = "";
+                StringBuilder sb = new StringBuilder();
+                
+                EntitySearcher.getAnnotations(property.asOWLObjectProperty(), sourceOntology, df.getRDFSLabel())
+                        .forEach(ov->{
+                            
+                    OWLAnnotationValue value = ov.getValue();
+                    
+                    if(value instanceof OWLLiteral){
+                        sb.append(((OWLLiteral) value).getLiteral());
+                    }
+                            
+                        });
+                
+                
+                label = sb.toString().trim();
 		
+                /* OLD OWLAPI 4
 		for(OWLAnnotation a : EntitySearcher.getAnnotations(property.asOWLObjectProperty(), 
 				this.sourceOntology, df.getRDFSLabel())) {
 			OWLAnnotationValue val = a.getValue(); 
@@ -1354,7 +1437,7 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 				//System.out.println(property.toString() + " labelled " + ((OWLLiteral) val).getLiteral() + " with " + property.toString());   
 			}
 		}
-		
+		*/
 		/*if(EntitySearcher.getAnnotations(property.asOWLObjectProperty(), 
 				this.sourceOntology, df.getRDFSLabel()).isEmpty()){
 			System.out.println("zero");

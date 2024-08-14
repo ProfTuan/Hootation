@@ -24,8 +24,11 @@ public class ExportCSV {
 
 	public static void main(String[] args) throws OWLOntologyCreationException, OWLAxiomConversionException, FileNotFoundException {
 		// TODO Auto-generated method stub
-		ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
+		//ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
 		
+                DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
+                ToStringRenderer.setRenderer(()->renderer);
+                
 		String csvFileName = "/Users/mfamith/Desktop/people-final.txt";
 		String dataContent = "";
 		String ontologyURL = "/Users/mfamith/Desktop/geography.owl";
