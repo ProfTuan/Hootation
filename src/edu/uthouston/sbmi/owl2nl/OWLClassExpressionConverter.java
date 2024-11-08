@@ -72,6 +72,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Sets;
+import java.util.LinkedList;
 import static java.util.stream.Collectors.toSet;
 
 import simplenlg.features.Feature;
@@ -497,12 +498,17 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 
 	@Override
 	public NLGElement visit(OWLObjectIntersectionOf ce) {
-		List<OWLClassExpression> operands = getOperandsByPriority(ce);
-
+		List<OWLClassExpression> operands = new LinkedList<OWLClassExpression>( getOperandsByPriority(ce));
+                
+             
 		// process first class
-		OWLClassExpression first = operands.remove(0);
+		OWLClassExpression first = operands.remove(0); 
+                //OWLClassExpression first = operands.get(1);
 		SPhraseSpec phrase = nlgFactory.createClause();
-		NPPhraseSpec firstElement = (NPPhraseSpec) first.accept(this);
+		//NPPhraseSpec firstElement = (NPPhraseSpec) first.accept(this);
+                
+                NPPhraseSpec firstElement = nlgFactory.createNounPhrase(first.accept(this));
+                
 		phrase.setSubject(firstElement);
 		startClass = first;
 
@@ -512,6 +518,11 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 			// process the classes
 			Iterator<OWLClassExpression> iterator = operands.iterator();
 			List<OWLClass> classes = new ArrayList<>();
+                        
+                        operands.forEach(owl_ce->{
+                            System.out.println("expression"+ owl_ce);
+                        });
+                        
 			while(iterator.hasNext()){
 				OWLClassExpression operand = iterator.next();
 				if(!operand.isAnonymous()){

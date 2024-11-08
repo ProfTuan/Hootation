@@ -90,7 +90,7 @@ public class GenerateStatements {
 
 	public static void main(String[] args) throws Exception {
 		GenerateStatements gs = GenerateStatements.getInstance();
-		gs.init(new File("/Users/mac/Desktop/persona.owl"));
+		gs.init(new File("/Users/mac/HPVCO_Final_Draft_007.rdf"));
 		gs.convertAxiomsToStatements();
 		
 	}

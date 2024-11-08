@@ -158,6 +158,7 @@ public class OWLAxiomConverter implements OWLAxiomVisitor{
 				return nl;
 			} catch (Exception e) {
 				throw new OWLAxiomConversionException(axiom, e);
+                                //System.out.println("Look at this: " + axiom);
 			}
 		}
 

@@ -35,7 +35,9 @@ public class DisplayStatements {
 		
 		boolean wantsOutput = false;
 		String dataContent = "";
-		if(args.length<1){
+		
+                /*
+                if(args.length<1){
 			System.out.println("Please specifiy a location for the ontology resource");
 			return;
 		}
@@ -44,11 +46,11 @@ public class DisplayStatements {
 			wantsOutput = true;
 			fileName = args[1];
 		}
-
+                */
 		//ontologyURL = args[0];
 		
-		//wantsOutput = true;
-		//fileName = "viso-hpv.csv";
+		wantsOutput = true;
+		fileName = "cancer-hpv.csv";
                 
                 //old OWL API 4
 		//.getInstance().setRenderer(new DLSyntaxObjectRenderer());
@@ -58,7 +60,7 @@ public class DisplayStatements {
                 
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 
-		OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File("/Users/mac/Desktop/persona.owl"));
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File("/Users/mac/HPVCO_Final_Draft_007.rdf"));
 		//OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File(args[0]));
 		OWLAxiomConverter converter = new OWLAxiomConverter(ontology);
 
