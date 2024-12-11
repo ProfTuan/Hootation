@@ -75,6 +75,8 @@ public class GenerateStatements {
 			}
 		}
 	}
+        
+        
 
 	public void reset(){
 		nl_statements.clear();

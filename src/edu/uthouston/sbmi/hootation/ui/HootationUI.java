@@ -6,7 +6,9 @@ package edu.uthouston.sbmi.hootation.ui;
 
 
 import com.formdev.flatlaf.FlatLightLaf;
+import edu.uthouston.sbmi.hootation.GenerateStatements;
 import java.awt.FileDialog;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -165,6 +167,11 @@ public class HootationUI extends javax.swing.JFrame {
         );
 
         jButton1.setText("Generate Translation");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -419,6 +426,15 @@ public class HootationUI extends javax.swing.JFrame {
         
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.LOAD);
         filedialog.setVisible(true);
+        String filePath = filedialog.getDirectory()+ filedialog.getFile();
+        //GenerateStatements gs = GenerateStatements.getInstance();
+       
+        System.out.println(filePath);
+        
+        this.pathTextFromMain.setText(filePath);
+        
+        
+        
     }//GEN-LAST:event_selectButtonFromMainActionPerformed
 
     private void saveToButtonFromMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveToButtonFromMainActionPerformed
@@ -426,6 +442,21 @@ public class HootationUI extends javax.swing.JFrame {
         
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.SAVE);
         filedialog.setVisible(true);
+        //filedialog.setFile("");
+        
+        //String savePath = filedialog.getDirectory()+filedialog.getFile();
+        
+        String fileName = filedialog.getFile();
+        if(csvOption.isSelected()){
+            fileName = fileName + ".csv";
+        }
+        else{
+            fileName = fileName + ".xlsx";
+        }
+        
+        String savePath = filedialog.getDirectory()+fileName;
+        
+        this.pathTextExportFromMain.setText(savePath);
     }//GEN-LAST:event_saveToButtonFromMainActionPerformed
 
     private void csvOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvOptionActionPerformed
@@ -447,6 +478,14 @@ public class HootationUI extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        //GenerateStatements gs = GenerateStatements.getInstance();
+        //gs.init(new File(filePath));
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
