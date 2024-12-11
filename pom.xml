@@ -7,6 +7,13 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <dependencies>
+        
+           <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        
         <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-distribution -->
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
@@ -168,7 +175,8 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                edu.uthouston.sbmi.hootation.DisplayStatements
+                                edu.uthouston.sbmi.hootation.ui.Hootation
+                               <!-- edu.uthouston.sbmi.hootation.DisplayStatements-->
                             </mainClass>
                         </manifest>
                     </archive>
