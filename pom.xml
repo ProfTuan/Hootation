@@ -175,7 +175,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                edu.uthouston.sbmi.hootation.ui.Hootation
+                                edu.uthouston.sbmi.hootation.ui.HootationUI
                                <!-- edu.uthouston.sbmi.hootation.DisplayStatements-->
                             </mainClass>
                         </manifest>
