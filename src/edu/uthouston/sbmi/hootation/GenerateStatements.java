@@ -13,6 +13,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import edu.uthouston.sbmi.owl2nl.OWLAxiomConversionException;
 import edu.uthouston.sbmi.owl2nl.OWLAxiomConverter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class GenerateStatements {
@@ -64,6 +66,7 @@ public class GenerateStatements {
 				try {
 
 					String output = converter.convert(axiom);
+                                        System.out.println(output);
 					nl_statements.add(output);
 
 				} catch (OWLAxiomConversionException e) {
@@ -76,7 +79,42 @@ public class GenerateStatements {
 		}
 	}
         
+        public void generateStatementsFromAxioms(File ontologyFile){
+            DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
+                ToStringRenderer.setRenderer(()->renderer);
+                
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+                
+
+                 
+            try {
+                OWLOntology ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
+                OWLAxiomConverter converter = new OWLAxiomConverter(ontology);
+                
+                for (OWLAxiom axiom : ontology.getAxioms()) {
+                    if(axiom.isLogicalAxiom()){
+                        String output = converter.convert(axiom);
+                        if(output != null){
+                            System.out.println("**Converting: " + axiom + " (" + axiom.getAxiomType().getName() +")");
+			System.out.println("**Output: " + output +"\n");
+                        }
+                    }
+                }
+                
+            } catch (OWLOntologyCreationException ex) {
+                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (OWLAxiomConversionException ex) {
+                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
+            }
+		//OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File(args[0]));
+                
+            
+		
+        }
         
+        public void printNLStatements(){
+            nl_statements.forEach(System.out::println);
+        }
 
 	public void reset(){
 		nl_statements.clear();

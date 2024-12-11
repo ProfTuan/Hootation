@@ -482,9 +482,13 @@ public class HootationUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        //GenerateStatements gs = GenerateStatements.getInstance();
-        //gs.init(new File(filePath));
+        GenerateStatements gs = GenerateStatements.getInstance();
+        //gs.init(new File(pathTextFromMain.getText()));
+        //gs.printNLStatements();
+        System.out.println("from text: " + pathTextFromMain.getText());
+        gs.generateStatementsFromAxioms(new File(pathTextFromMain.getText()));
         
+        System.out.println("Done");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
