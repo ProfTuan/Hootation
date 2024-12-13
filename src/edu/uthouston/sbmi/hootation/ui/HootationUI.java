@@ -11,6 +11,7 @@ import java.awt.FileDialog;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -488,7 +489,16 @@ public class HootationUI extends javax.swing.JFrame {
         System.out.println("from text: " + pathTextFromMain.getText());
         gs.generateStatementsFromAxioms(new File(pathTextFromMain.getText()));
         
-        System.out.println("Done");
+        
+        if(csvOption.isSelected()){
+            gs.outputAsCSVFile(this.pathTextExportFromMain.getText());
+        }
+        else{
+            gs.outputAsExcel(this.pathTextExportFromMain.getText());
+        }
+        
+        JOptionPane.showMessageDialog(null, "Generation completed");
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
