@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import edu.uthouston.sbmi.owl2nl.OWLAxiomConversionException;
 import edu.uthouston.sbmi.owl2nl.OWLAxiomConverter;
 import edu.uthouston.sbmi.util.CSVWriter;
+import edu.uthouston.sbmi.util.ExcelWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -128,55 +129,11 @@ public class GenerateStatements {
             
             String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
             
-            Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("Results");
+            ExcelWriter xl_writer = new ExcelWriter(headers);
+
+            xl_writer.write(outputPathFile, outputRecords, headers);
             
-            //header customization
-            XSSFFont header_font = ((XSSFWorkbook) workbook).createFont();
-            header_font.setBold(true);
-            
-            CellStyle header_style = workbook.createCellStyle();
-            header_style.setFont(header_font);
-            
-            
-            Row row_header = sheet.createRow(0);
-            int index =0;
-            for(String header : headers){
-                Cell cell_header = row_header.createCell(index);
-                cell_header.setCellValue(header);
-                cell_header.setCellStyle(header_style);
-                index++;
-            }
-            
-            //add data from outputRecords
-            
-            int row_num = 1;
-            
-            for(OutputRecord record: outputRecords){
-                Row row = sheet.createRow(row_num);
-                int cell_index = 0;
-                for(String header : headers){
-                    String value = record.getStringValueByMember(header);
-                    Cell cell = row.createCell(cell_index);
-                    cell.setCellValue(value);
-                    cell_index++;
-                }
-                
-                row_num++;
-            }
-            
-            //save file
-            File outputFile = new File(outputPathFile);
-            try {
-                FileOutputStream outstream = new FileOutputStream(outputFile);
-                workbook.write(outstream);
-            workbook.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+ 
             
         }
         
