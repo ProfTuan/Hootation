@@ -3,3 +3,4 @@
 .DS_Store
 *.csv
 /target/
+!/src/main/resources/llm_urls.csv
