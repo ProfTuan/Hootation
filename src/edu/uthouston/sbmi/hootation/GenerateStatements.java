@@ -108,10 +108,7 @@ public class GenerateStatements {
         
         
         public void outputAsCSVFile(String outputPathFile){
-            
-            //if(outputContent == null) return;
-            
-            
+
             String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
             
             CSVWriter csv_writer = new CSVWriter(headers);
