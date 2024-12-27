@@ -23,13 +23,18 @@ public class OutputRecord {
     
     public String getStringValueByMember(String membership){
         
-        if(membership == "AXIOM_TYPE") return axiom_type.toString();
+        if(null == membership) return "ERROR";
         
-        else if(membership == "AXIOM") return axiom.toString();
-        
-        else if(membership == "NATURAL LANGUAGE TRANSLATION") return natural_language;
-        
-        else return "ERROR";
+        else switch (membership) {
+            case "AXIOM TYPE":
+                return axiom_type.toString();
+            case "AXIOM":
+                return axiom.toString();
+            case "NATURAL LANGUAGE TRANSLATION":
+                return natural_language;
+            default:
+                return "ERROR";
+        }
         
     }
 
