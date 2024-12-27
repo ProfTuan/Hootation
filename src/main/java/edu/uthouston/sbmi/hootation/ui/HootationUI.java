@@ -79,11 +79,11 @@ public class HootationUI extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtGPULayer = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtThreads = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtPredictionLength = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputPanel = new javax.swing.JTextArea();
 
@@ -344,15 +344,15 @@ public class HootationUI extends javax.swing.JFrame {
 
         jLabel4.setText("GPU Layers:");
 
-        jTextField4.setText("[Enter]");
+        txtGPULayer.setText("[Enter]");
 
         jLabel5.setText("Thread Number:");
 
-        jTextField5.setText("[Enter]");
+        txtThreads.setText("[Enter]");
 
         jLabel6.setText("Prediction Length:");
 
-        jTextField6.setText("[Enter]");
+        txtPredictionLength.setText("[Enter]");
 
         javax.swing.GroupLayout panelLLMConfigurationLayout = new javax.swing.GroupLayout(panelLLMConfiguration);
         panelLLMConfiguration.setLayout(panelLLMConfigurationLayout);
@@ -369,15 +369,15 @@ public class HootationUI extends javax.swing.JFrame {
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtThreads, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPredictionLength, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(284, Short.MAX_VALUE))
         );
         panelLLMConfigurationLayout.setVerticalGroup(
@@ -392,15 +392,15 @@ public class HootationUI extends javax.swing.JFrame {
                 .addGap(93, 93, 93)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtThreads, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPredictionLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
@@ -525,9 +525,7 @@ public class HootationUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         LLMConfiguration llm_config = LLMConfiguration.getInstance();
         
-        //Map<String, String> collectLLMList = llm_config.collectLLMList();
         
-        //LLMURLList llm_list_instance = LLMURLList.getInstance();
         
         llmList = llm_config.collectLLMList();
         
@@ -541,8 +539,16 @@ public class HootationUI extends javax.swing.JFrame {
         }
         
         
-        //this.llm_list.insertElementAt("test 1", 0);
-        //llm_list.insertElementAt("test 2", 1);
+        //add LLM parameters
+        int numThreads = llm_config.getNumThreads();
+        int layers = llm_config.getLayers();
+        int predictNumber = llm_config.predictNumber();
+        
+        this.txtGPULayer.setText(layers +"");
+        this.txtPredictionLength.setText(predictNumber + "");
+        this.txtThreads.setText(numThreads + "");
+        
+        
         
         
     }//GEN-LAST:event_jTabbedPane1FocusGained
@@ -599,9 +605,6 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JPanel llmPanel;
     private javax.swing.JList<String> lstLLM;
     private javax.swing.ButtonGroup modeldownloadOption;
@@ -614,5 +617,8 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JTextField pathTextFromMain;
     private javax.swing.JButton saveToButtonFromMain;
     private javax.swing.JButton selectButtonFromMain;
+    private javax.swing.JTextField txtGPULayer;
+    private javax.swing.JTextField txtPredictionLength;
+    private javax.swing.JTextField txtThreads;
     // End of variables declaration//GEN-END:variables
 }
