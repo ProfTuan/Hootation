@@ -12,9 +12,7 @@ import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
 import java.awt.Color;
 import java.awt.FileDialog;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -445,7 +443,6 @@ public class HootationUI extends javax.swing.JFrame {
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.LOAD);
         filedialog.setVisible(true);
         String filePath = filedialog.getDirectory()+ filedialog.getFile();
-        //GenerateStatements gs = GenerateStatements.getInstance();
        
         System.out.println(filePath);
         
@@ -460,9 +457,7 @@ public class HootationUI extends javax.swing.JFrame {
         
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.SAVE);
         filedialog.setVisible(true);
-        //filedialog.setFile("");
         
-        //String savePath = filedialog.getDirectory()+filedialog.getFile();
         
         String fileName = filedialog.getFile();
         if(csvOption.isSelected()){
@@ -494,21 +489,7 @@ public class HootationUI extends javax.swing.JFrame {
         
         this.printToConsole("Generating statements... \n", Color.BLUE);
         
-        /*
-        GenerateStatements gs = GenerateStatements.getInstance();
-        
-        System.out.println("from text: " + pathTextFromMain.getText());
-        gs.generateStatementsFromAxioms(new File(pathTextFromMain.getText()), this);
-        
-        
-        if(csvOption.isSelected()){
-            gs.outputAsCSVFile(this.pathTextExportFromMain.getText());
-        }
-        else{
-            gs.outputAsExcel(this.pathTextExportFromMain.getText());
-        }
-        */
-        
+     
         GenerateStatementProcess gs_process = new GenerateStatementProcess();
         gs_process.setParent(this);
         gs_process.start();
@@ -606,6 +587,7 @@ public class HootationUI extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
          
+            
             
             //UIManager.setLookAndFeel( new FlatDarkLaf() );
             
