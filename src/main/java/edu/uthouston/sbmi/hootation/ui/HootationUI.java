@@ -59,7 +59,7 @@ public class HootationUI extends javax.swing.JFrame {
         pathTextExportFromMain = new javax.swing.JTextField();
         csvOption = new javax.swing.JRadioButton();
         excelOption = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnGenerateTranslation = new javax.swing.JButton();
         ckLLM = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
         llmPanel = new javax.swing.JPanel();
@@ -181,10 +181,10 @@ public class HootationUI extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Generate Translation");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateTranslation.setText("Generate Translation");
+        btnGenerateTranslation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGenerateTranslationActionPerformed(evt);
             }
         });
 
@@ -240,7 +240,7 @@ public class HootationUI extends javax.swing.JFrame {
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ckLLM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelHootationLayout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnGenerateTranslation)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelHootationLayout.createSequentialGroup()
@@ -260,7 +260,7 @@ public class HootationUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(llmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnGenerateTranslation)
                 .addContainerGap())
         );
 
@@ -484,7 +484,7 @@ public class HootationUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_modelSavePathActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGenerateTranslationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTranslationActionPerformed
         // TODO add your handling code here:
         
         GenerateStatements gs = GenerateStatements.getInstance();
@@ -503,7 +503,7 @@ public class HootationUI extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Generation completed");
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGenerateTranslationActionPerformed
 
     private void ckLLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMActionPerformed
         // TODO add your handling code here:
@@ -529,7 +529,6 @@ public class HootationUI extends javax.swing.JFrame {
         
         llmList = llm_config.collectLLMList();
         
-        System.out.println(llmList.size() + " is the size of llmList");
         
         int i=0;
         for(var entry : llmList.entrySet()){
@@ -581,12 +580,12 @@ public class HootationUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerateTranslation;
     private javax.swing.JCheckBox ckLLM;
     private javax.swing.JCheckBox ckLLMFactChecking;
     private javax.swing.JCheckBox ckLLMRefinement;
     private javax.swing.JRadioButton csvOption;
     private javax.swing.JRadioButton excelOption;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
