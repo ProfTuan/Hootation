@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import edu.uthouston.sbmi.hootation.GenerateStatements;
 
 import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
+import java.awt.Color;
 import java.awt.FileDialog;
 import java.io.File;
 import java.util.ArrayList;
@@ -450,7 +451,7 @@ public class HootationUI extends javax.swing.JFrame {
         
         this.pathTextFromMain.setText(filePath);
         
-        
+        this.printToConsole("Location selected: " + filePath, Color.BLUE);
         
     }//GEN-LAST:event_selectButtonFromMainActionPerformed
 
@@ -470,10 +471,14 @@ public class HootationUI extends javax.swing.JFrame {
         else{
             fileName = fileName + ".xlsx";
         }
+        this.printToConsole("File named noted: " + fileName, Color.BLUE );
         
         String savePath = filedialog.getDirectory()+fileName;
         
         this.pathTextExportFromMain.setText(savePath);
+        
+        
+        this.printToConsole("Output path indicated: " + savePath, Color.BLUE);
     }//GEN-LAST:event_saveToButtonFromMainActionPerformed
 
     private void csvOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvOptionActionPerformed
@@ -487,11 +492,13 @@ public class HootationUI extends javax.swing.JFrame {
     private void btnGenerateTranslationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTranslationActionPerformed
         // TODO add your handling code here:
         
+        this.printToConsole("Generating statements... \n", Color.BLUE);
+        
+        /*
         GenerateStatements gs = GenerateStatements.getInstance();
-        //gs.init(new File(pathTextFromMain.getText()));
-        //gs.printNLStatements();
+        
         System.out.println("from text: " + pathTextFromMain.getText());
-        gs.generateStatementsFromAxioms(new File(pathTextFromMain.getText()));
+        gs.generateStatementsFromAxioms(new File(pathTextFromMain.getText()), this);
         
         
         if(csvOption.isSelected()){
@@ -500,11 +507,52 @@ public class HootationUI extends javax.swing.JFrame {
         else{
             gs.outputAsExcel(this.pathTextExportFromMain.getText());
         }
+        */
         
-        JOptionPane.showMessageDialog(null, "Generation completed");
+        GenerateStatementProcess gs_process = new GenerateStatementProcess();
+        gs_process.setParent(this);
+        gs_process.start();
+        
+        
        
     }//GEN-LAST:event_btnGenerateTranslationActionPerformed
 
+    class GenerateStatementProcess extends Thread{
+        
+        private HootationUI gui = null;
+        
+        public void setParent(HootationUI _parent){
+            this.gui = _parent;
+        }
+        
+        @Override
+        public void run(){
+            GenerateStatements gs = GenerateStatements.getInstance();
+            gs.generateStatementsFromAxioms(new File(gui.pathTextFromMain.getText()), this.gui);
+            
+            if(gui.csvOption.isSelected()){
+                gs.outputAsCSVFile(gui.pathTextExportFromMain.getText());
+            }
+            else{
+                gs.outputAsExcel(gui.pathTextExportFromMain.getText());
+            }
+            
+            JOptionPane.showMessageDialog(gui, "Generation complelted");
+            
+            
+            gui.printToConsole("Generation is completed", Color.BLUE);
+        }
+        
+    }
+    
+    public void printToConsole(String text, Color color){
+        
+        this.outputPanel.setForeground(color);
+        
+        this.outputPanel.append("\n" + text);
+        
+    }
+    
     private void ckLLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMActionPerformed
         // TODO add your handling code here:
         

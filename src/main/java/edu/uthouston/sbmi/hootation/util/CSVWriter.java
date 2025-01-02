@@ -35,6 +35,7 @@ public class CSVWriter {
             printer.printRecord(record.getAxiom_type(), record.getAxiom(), record.getNatural_language());
 
         }
+        
 
         printer.flush();
 

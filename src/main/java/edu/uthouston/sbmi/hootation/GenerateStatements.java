@@ -14,14 +14,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import edu.uthouston.sbmi.hootation.owl2nl.OWLAxiomConversionException;
 import edu.uthouston.sbmi.hootation.owl2nl.OWLAxiomConverter;
+import edu.uthouston.sbmi.hootation.ui.HootationUI;
 import edu.uthouston.sbmi.hootation.util.CSVWriter;
 import edu.uthouston.sbmi.hootation.util.ExcelWriter;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class GenerateStatements {
+    
+        private HootationUI gui = null;
 
 	private OWLOntology ontology;
 
@@ -115,7 +119,10 @@ public class GenerateStatements {
             
         }
         
-        public void generateStatementsFromAxioms(File ontologyFile){
+        public void generateStatementsFromAxioms(File ontologyFile, HootationUI parent){
+            
+            gui = parent;
+            
             outputRecords = new ArrayList<OutputRecord>();
             //outputContent = new StringBuilder();
             
@@ -136,6 +143,9 @@ public class GenerateStatements {
                         if(output != null){
                             //System.out.println("**Converting: " + axiom + " (" + axiom.getAxiomType().getName() +")");
                             System.out.println("**Output: " + output +"\n");
+                            
+                            gui.printToConsole("\n**Converting: " + axiom + " (" + axiom.getAxiomType().getName() +")", Color.BLUE);
+                            gui.printToConsole("**Output: " + output, Color.BLUE);
                             
                             String output_line = axiom.getAxiomType().getName() + "\t" + axiom + "\t" + output +"\n";
                             
