@@ -4,6 +4,7 @@
  */
 package edu.uthouston.sbmi.hootation.models;
 
+import edu.utmb.semantic.llmenrichment.model.NLAxiomData;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -11,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *
  * @author mac
  */
-public class OutputRecord {
+public class OutputRecord extends NLAxiomData{
     
     private AxiomType axiom_type;
     private OWLAxiom axiom;
@@ -57,5 +58,7 @@ public class OutputRecord {
     public void setNatural_language(String natural_language) {
         this.natural_language = natural_language;
     }
+    
+    
     
 }

@@ -149,7 +149,8 @@ public class GenerateStatements {
                             
                             String output_line = axiom.getAxiomType().getName() + "\t" + axiom + "\t" + output +"\n";
                             
-                            OutputRecord output_record = new OutputRecord();
+                            OutputRecord output_record
+                             = new OutputRecord();
                             output_record.setAxiom(axiom);
                             output_record.setAxiom_type(axiom.getAxiomType());
                             output_record.setNatural_language(output);

@@ -76,7 +76,7 @@ public class HootationUI extends javax.swing.JFrame {
         panelLLMConfiguration = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        txtModelPath = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtGPULayer = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -338,8 +338,8 @@ public class HootationUI extends javax.swing.JFrame {
 
         jButton4.setText("Select Model");
 
-        jTextField2.setEditable(false);
-        jTextField2.setText("[Selected Model Path]");
+        txtModelPath.setEditable(false);
+        txtModelPath.setText("[Selected Model Path]");
 
         jLabel4.setText("GPU Layers:");
 
@@ -364,7 +364,7 @@ public class HootationUI extends javax.swing.JFrame {
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -387,7 +387,7 @@ public class HootationUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -490,6 +490,22 @@ public class HootationUI extends javax.swing.JFrame {
         this.printToConsole("Generating statements... \n", Color.BLUE);
         
      
+        //get llm parameters
+        if(this.ckLLM.isSelected()){
+            
+            if(this.ckLLMRefinement.isSelected() && this.ckLLMRefinement.isEnabled()){
+                this.printToConsole("User specified LLM refinement of sentences", Color.BLUE);
+            }
+            
+            if(this.ckLLMFactChecking.isSelected() && this.ckLLMFactChecking.isEnabled()){
+                this.printToConsole("User specified fact checking of statements", Color.BLUE);
+            }
+            
+            this.printToConsole("Getting LLM configuration...", Color.BLUE);
+            this.getUserLLMParameters();
+        }
+        
+        
         GenerateStatementProcess gs_process = new GenerateStatementProcess();
         gs_process.setParent(this);
         gs_process.start();
@@ -550,6 +566,18 @@ public class HootationUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ckLLMActionPerformed
 
+    
+    private void getUserLLMParameters(){
+        LLMConfiguration llm_config = LLMConfiguration.getInstance();
+        
+        
+        llm_config.setLayers(Integer.parseInt(this.txtGPULayer.getText()));
+        llm_config.setNumThread(Integer.parseInt(txtThreads.getText()));
+        llm_config.setPredictNumber(Integer.parseInt(txtPredictionLength.getText()));
+        llm_config.setModelFilePath(this.txtModelPath.getText());
+        
+    }
+    
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
         // TODO add your handling code here:
         LLMConfiguration llm_config = LLMConfiguration.getInstance();
@@ -633,7 +661,6 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel llmPanel;
     private javax.swing.JList<String> lstLLM;
     private javax.swing.ButtonGroup modeldownloadOption;
@@ -647,6 +674,7 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JButton saveToButtonFromMain;
     private javax.swing.JButton selectButtonFromMain;
     private javax.swing.JTextField txtGPULayer;
+    private javax.swing.JTextField txtModelPath;
     private javax.swing.JTextField txtPredictionLength;
     private javax.swing.JTextField txtThreads;
     // End of variables declaration//GEN-END:variables

@@ -459,7 +459,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jButton4" min="-2" pref="159" max="-2" attributes="0"/>
                               <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" pref="322" max="-2" attributes="0"/>
+                              <Component id="txtModelPath" min="-2" pref="322" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -489,7 +489,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtModelPath" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -525,7 +525,7 @@
                 <Property name="text" type="java.lang.String" value="Select Model"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="txtModelPath">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="text" type="java.lang.String" value="[Selected Model Path]"/>

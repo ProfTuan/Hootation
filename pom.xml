@@ -172,7 +172,7 @@
     <dependency>
       <groupId>edu.utmb.semantic</groupId>
       <artifactId>LLMEnrichment</artifactId>
-      <version>0.01</version>
+      <version>0.50</version>
     </dependency>
   </dependencies>
   
