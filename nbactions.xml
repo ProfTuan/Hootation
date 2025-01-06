@@ -52,4 +52,13 @@
                 <exec.appArgs></exec.appArgs>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-clean install verify</actionName>
+            <displayName>clean install verify</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>verify</goal>
+            </goals>
+        </action>
     </actions>
