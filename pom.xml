@@ -184,6 +184,12 @@
 
   <build>
       <finalName>hootation</finalName>
+      <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     <plugins>
         
         <plugin>
@@ -199,7 +205,7 @@
         </plugin>
 
         
-        
+        <!--
         
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -208,20 +214,25 @@
             <configuration>
                 <archive>
                     <manifest>
+                        <addClasspath>true</addClasspath>
+                <classpathPrefix>libs/</classpathPrefix>
                         <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
                     </manifest>
                 </archive>
             </configuration>
       </plugin>
-      
+      -->
               <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>${maven-shade-plugin.version}</version>
             <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
                 <transformers>
-                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
+                    </transformer>
                 </transformers>
+                <finalName>hootation-distribution</finalName>
             </configuration>
             <executions>
                 <execution>

@@ -7,6 +7,12 @@
   <version>1.0</version>
   <url>http://www.example.com</url>
   <build>
+    <resources>
+      <resource>
+        <filtering>true</filtering>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
     <finalName>hootation</finalName>
     <plugins>
       <plugin>
@@ -20,19 +26,7 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven-shade-plugin.version}</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -42,9 +36,13 @@
           </execution>
         </executions>
         <configuration>
+          <shadedArtifactAttached>true</shadedArtifactAttached>
           <transformers>
-            <transformer />
+            <transformer>
+              <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
+            </transformer>
           </transformers>
+          <finalName>hootation-distribution</finalName>
         </configuration>
       </plugin>
     </plugins>
