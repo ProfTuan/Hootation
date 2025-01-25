@@ -238,8 +238,13 @@ public class OWLAxiomConverter implements OWLAxiomVisitor{
 
 	@Override
 	public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-		//System.out.println(axiom.getSubProperty());
-		//System.out.println(axiom.getSuperProperty());
+		
+                if(axiom.getSubProperty().isOWLTopObjectProperty() || axiom.getSuperProperty().isOWLTopObjectProperty()){
+                    System.out.println("true");
+                    return;
+                }
+                
+                
 		NLGElement subProp = ceConverter.asNLGElement(axiom.getSubProperty());
 		NLGElement superProp = ceConverter.asNLGElement(axiom.getSuperProperty());
 		

@@ -337,7 +337,8 @@ public class PropertyVerbalizer {
     
 	private PropertyVerbalization getTypeByLinguisticAnalysis(String propertyURI, String propertyText) {
 		logger.debug("...using linguistical analysis...");
-		Annotation document = new Annotation(propertyText);
+                
+                Annotation document = new Annotation(propertyText);
 		pipeline.annotate(document);
 		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
 

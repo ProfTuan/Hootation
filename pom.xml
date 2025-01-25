@@ -118,15 +118,22 @@
             <artifactId>extjwnl-data-wn31</artifactId>
             <version>1.2</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
             <version>3.6.0</version>
-        </dependency>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
+<dependency>
+    <groupId>edu.stanford.nlp</groupId>
+    <artifactId>stanford-corenlp</artifactId>
+    <version>4.5.8</version>
+</dependency>
+
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
             <artifactId>stanford-corenlp</artifactId>
-            <version>3.6.0</version>
+            <version>4.5.8</version>
             <classifier>models</classifier>
         </dependency>
         <dependency>
