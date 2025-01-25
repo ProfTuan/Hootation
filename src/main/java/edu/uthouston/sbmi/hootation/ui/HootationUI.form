@@ -305,12 +305,18 @@
                     <Property name="text" type="java.lang.String" value="Provide LLM refinement of the translation"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckLLMRefinementActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ckLLMFactChecking">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Provide basic fact checking of the statements"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckLLMFactCheckingActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

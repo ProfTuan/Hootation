@@ -185,7 +185,7 @@ public class OWLAxiomConverter implements OWLAxiomVisitor{
 		logger.finest("SuperClass: " + realiser.realise(superClassElement));
 		//System.out.println("   SuperClass: " + realiser.realise(superClassElement));
 
-		SPhraseSpec clause = nlgFactory.createClause(subClassElement, "be", superClassElement);
+		SPhraseSpec clause = nlgFactory.createClause(subClassElement, "is a type of", superClassElement);
 		superClassElement.setFeature(Feature.COMPLEMENTISER, null);
 
 		nl = realiser.realise(clause).toString();

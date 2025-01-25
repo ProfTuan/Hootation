@@ -17,186 +17,186 @@ import edu.uthouston.sbmi.hootation.owl2nl.OWLAxiomConverter;
 import edu.uthouston.sbmi.hootation.ui.HootationUI;
 import edu.uthouston.sbmi.hootation.util.CSVWriter;
 import edu.uthouston.sbmi.hootation.util.ExcelWriter;
+import edu.utmb.semantic.llmenrichment.LLMAdapter;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class GenerateStatements {
-    
-        private HootationUI gui = null;
 
-	private OWLOntology ontology;
+    private HootationUI gui = null;
 
-	private OWLAxiomConverter converter;
+    private OWLOntology ontology;
 
-	private ArrayList<String> nl_statements;
-	
-	private static GenerateStatements instance = null;
-        
-        private StringBuilder outputContent = null;
-        
-        private ArrayList<OutputRecord> outputRecords = null;
+    private OWLAxiomConverter converter;
 
-	protected GenerateStatements() {
-		// TODO Auto-generated constructor stub
+    private ArrayList<String> nl_statements;
 
-	}
-	
-	public static GenerateStatements getInstance(){
-		if(instance == null){
-			instance = new GenerateStatements();
-		}
+    private static GenerateStatements instance = null;
 
-		return instance;
-	}
-	public void init(File ontologyFile){
-		nl_statements = new ArrayList<String>();
-		
-                //old owlapi 4
-                //ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
-		
-                DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
-                ToStringRenderer.setRenderer(()->renderer);
-                
-                OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-		try {
-			ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
+    private StringBuilder outputContent = null;
 
-		} catch (OWLOntologyCreationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    private ArrayList<OutputRecord> outputRecords = null;
 
+    protected GenerateStatements() {
+        // TODO Auto-generated constructor stub
 
-	public void convertAxiomsToStatements(){
-		converter = new OWLAxiomConverter(ontology);
-		for (OWLAxiom axiom : ontology.getAxioms()) {
-			if(axiom.isLogicalAxiom()){
-				try {
+    }
 
-					String output = converter.convert(axiom);
-                                        System.out.println(output);
-					nl_statements.add(output);
+    public static GenerateStatements getInstance() {
+        if (instance == null) {
+            instance = new GenerateStatements();
+        }
 
-				} catch (OWLAxiomConversionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+        return instance;
+    }
 
+    public void init(File ontologyFile) {
+        nl_statements = new ArrayList<String>();
 
-			}
-		}
-	}
-        
-        
-        public void outputAsCSVFile(String outputPathFile){
+        //old owlapi 4
+        //ToStringRenderer.getInstance().setRenderer(new DLSyntaxObjectRenderer());
+        DLSyntaxObjectRenderer renderer = new DLSyntaxObjectRenderer();
+        ToStringRenderer.setRenderer(() -> renderer);
 
-            String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
-            
-            CSVWriter csv_writer = new CSVWriter(headers);
-            
-            try {
-                csv_writer.write(outputPathFile, outputRecords);
-            } catch (IOException ex) {
-                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        try {
+            ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
+
+        } catch (OWLOntologyCreationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void convertAxiomsToStatements() {
+        converter = new OWLAxiomConverter(ontology);
+        for (OWLAxiom axiom : ontology.getAxioms()) {
+            if (axiom.isLogicalAxiom()) {
+                try {
+
+                    String output = converter.convert(axiom);
+                    System.out.println(output);
+                    nl_statements.add(output);
+
+                } catch (OWLAxiomConversionException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
             }
-            
-            
         }
-        
-        public void outputAsExcel(String outputPathFile){
-            
-            String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
-            
-            ExcelWriter xl_writer = new ExcelWriter(headers);
+    }
 
-            xl_writer.write(outputPathFile, outputRecords, headers);
-            
- 
-            
+    public void outputAsCSVFile(String outputPathFile) {
+
+        String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
+
+        CSVWriter csv_writer = new CSVWriter(headers);
+
+        try {
+            csv_writer.write(outputPathFile, outputRecords);
+        } catch (IOException ex) {
+            Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        public void generateStatementsFromAxioms(File ontologyFile, HootationUI parent){
-            
-            gui = parent;
-            
-            outputRecords = new ArrayList<OutputRecord>();
-            //outputContent = new StringBuilder();
-            
-            DLSyntaxObjectRenderer renderer =  new DLSyntaxObjectRenderer();
-                ToStringRenderer.setRenderer(()->renderer);
-                
-		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-                
 
-                 
-            try {
-                OWLOntology ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
-                OWLAxiomConverter converter = new OWLAxiomConverter(ontology);
-                
-                for (OWLAxiom axiom : ontology.getAxioms()) {
-                    if(axiom.isLogicalAxiom()){
-                        String output = converter.convert(axiom);
-                        if(output != null){
-                            //System.out.println("**Converting: " + axiom + " (" + axiom.getAxiomType().getName() +")");
-                            System.out.println("**Output: " + output +"\n");
-                            
-                            gui.printToConsole("\n**Converting: " + axiom + " (" + axiom.getAxiomType().getName() +")", Color.BLUE);
-                            gui.printToConsole("**Output: " + output, Color.BLUE);
-                            
-                            String output_line = axiom.getAxiomType().getName() + "\t" + axiom + "\t" + output +"\n";
-                            
-                            OutputRecord output_record
-                             = new OutputRecord();
-                            output_record.setAxiom(axiom);
-                            output_record.setAxiom_type(axiom.getAxiomType());
-                            output_record.setNatural_language(output);
-                            
-                            outputRecords.add(output_record);
-                            
-                            //outputContent.append(output_line);
+    }
+
+    public void outputAsExcel(String outputPathFile) {
+
+        String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
+
+        ExcelWriter xl_writer = new ExcelWriter(headers);
+
+        xl_writer.write(outputPathFile, outputRecords, headers);
+
+    }
+
+    
+    
+    
+    public void generateStatementsFromAxioms(File ontologyFile, HootationUI parent) {
+
+        gui = parent;
+
+        outputRecords = new ArrayList<OutputRecord>();
+        //outputContent = new StringBuilder();
+        LLMAdapter llm = new LLMAdapter();
+        DLSyntaxObjectRenderer renderer = new DLSyntaxObjectRenderer();
+        ToStringRenderer.setRenderer(() -> renderer);
+
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+
+        try {
+            OWLOntology ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
+            OWLAxiomConverter converter = new OWLAxiomConverter(ontology);
+
+            for (OWLAxiom axiom : ontology.getAxioms()) {
+                if (axiom.isLogicalAxiom()) {
+                    String output = converter.convert(axiom);
+                    if (output != null) {
+                        
+                        System.out.println("**Output: " + output + "\n");
+
+                        gui.printToConsole("\n**Converting: " + axiom + " (" + axiom.getAxiomType().getName() + ")", Color.BLUE);
+                        gui.printToConsole("**Output: " + output, Color.BLUE);
+
+                        String output_line = axiom.getAxiomType().getName() + "\t" + axiom + "\t" + output + "\n";
+
+                        OutputRecord output_record
+                                = new OutputRecord();
+                        output_record.setAxiom(axiom);
+                        output_record.setAxiom_type(axiom.getAxiomType());
+                        output_record.setNatural_language(output);
+                        
+                        
+                        if(gui.performRefinement()){
+                            String llm_fix = llm.executeLLMEnhancement(output_record.getNatural_language(), axiom.getAxiomType().toString());
+                            output_record.setLLMNaturalLanguageTranslation(llm_fix);
+                        }
+                        
+                        if(gui.performFactChecking()){
                             
                         }
+
+
+                        outputRecords.add(output_record);
+
                     }
                 }
-                
-            } catch (OWLOntologyCreationException ex) {
-                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (OWLAxiomConversionException ex) {
-                Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
             }
-		//OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File(args[0]));
-		//OWLOntology ontology = man.loadOntologyFromOntologyDocument(new File(args[0]));
-                
-            
-		
+
+        } catch (OWLOntologyCreationException ex) {
+            Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (OWLAxiomConversionException ex) {
+            Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        public void printNLStatements(){
-            nl_statements.forEach(System.out::println);
-        }
+       
 
-	public void reset(){
-		nl_statements.clear();
-	}
+    }
 
-	public ArrayList<String> getNl_statements() {
-		return nl_statements;
-	}
+    public void printNLStatements() {
+        nl_statements.forEach(System.out::println);
+    }
 
-	public void setNl_statements(ArrayList<String> nl_statements) {
-		this.nl_statements = nl_statements;
-	}
+    public void reset() {
+        nl_statements.clear();
+    }
 
-	public static void main(String[] args) throws Exception {
-		GenerateStatements gs = GenerateStatements.getInstance();
-		gs.init(new File("/Users/mac/HPVCO_Final_Draft_007.rdf"));
-		gs.convertAxiomsToStatements();
-		
-	}
-	
+    public ArrayList<String> getNl_statements() {
+        return nl_statements;
+    }
+
+    public void setNl_statements(ArrayList<String> nl_statements) {
+        this.nl_statements = nl_statements;
+    }
+
+    public static void main(String[] args) throws Exception {
+        GenerateStatements gs = GenerateStatements.getInstance();
+        gs.init(new File("/Users/mac/HPVCO_Final_Draft_007.rdf"));
+        gs.convertAxiomsToStatements();
+
+    }
 
 }

@@ -26,6 +26,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class HootationUI extends javax.swing.JFrame {
     
+    private boolean doFactChecking = false;
+    private boolean doRefinement = false;
+    
     private  DefaultListModel llm_list = new DefaultListModel();
     private Map<String, String> llmList;
 
@@ -202,9 +205,19 @@ public class HootationUI extends javax.swing.JFrame {
 
         ckLLMRefinement.setText("Provide LLM refinement of the translation");
         ckLLMRefinement.setEnabled(false);
+        ckLLMRefinement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckLLMRefinementActionPerformed(evt);
+            }
+        });
 
         ckLLMFactChecking.setText("Provide basic fact checking of the statements");
         ckLLMFactChecking.setEnabled(false);
+        ckLLMFactChecking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckLLMFactCheckingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout llmPanelLayout = new javax.swing.GroupLayout(llmPanel);
         llmPanel.setLayout(llmPanelLayout);
@@ -550,6 +563,16 @@ public class HootationUI extends javax.swing.JFrame {
         
     }
     
+    
+    
+    public boolean performFactChecking(){
+        return doFactChecking;
+    }
+    
+    public boolean performRefinement(){
+        return doRefinement;
+    }
+    
     private void ckLLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMActionPerformed
         // TODO add your handling code here:
         
@@ -557,6 +580,8 @@ public class HootationUI extends javax.swing.JFrame {
             llmPanel.setEnabled(true);
             this.ckLLMFactChecking.setEnabled(true);
             this.ckLLMRefinement.setEnabled(true);
+            
+            
         }
         else{
             llmPanel.setEnabled(false);
@@ -608,6 +633,17 @@ public class HootationUI extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jTabbedPane1FocusGained
+
+    private void ckLLMRefinementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMRefinementActionPerformed
+        // TODO add your handling code here:
+        if(ckLLMRefinement.isEnabled()) this.doRefinement = ckLLMRefinement.isSelected();
+        
+    }//GEN-LAST:event_ckLLMRefinementActionPerformed
+
+    private void ckLLMFactCheckingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMFactCheckingActionPerformed
+        // TODO add your handling code here:
+        if(ckLLMFactChecking.isEnabled()) this.doFactChecking = ckLLMFactChecking.isSelected();
+    }//GEN-LAST:event_ckLLMFactCheckingActionPerformed
 
     /**
      * @param args the command line arguments
