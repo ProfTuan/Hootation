@@ -157,6 +157,7 @@ public class GenerateStatements {
                         }
                         
                         if(gui.performFactChecking()){
+                            String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
                             
                         }
 
