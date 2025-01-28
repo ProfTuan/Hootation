@@ -38,10 +38,16 @@ public class GenerateStatements {
     private StringBuilder outputContent = null;
 
     private ArrayList<OutputRecord> outputRecords = null;
+    
+    private ArrayList<String> headers = new ArrayList<String>();
 
     protected GenerateStatements() {
         // TODO Auto-generated constructor stub
-
+        
+        headers.add("AXIOM TYPE");
+        headers.add("AXIOM");
+        headers.add( "NATURAL LANGUAGE TRANSLATION");
+        
     }
 
     public static GenerateStatements getInstance() {
@@ -91,9 +97,12 @@ public class GenerateStatements {
 
     public void outputAsCSVFile(String outputPathFile) {
 
-        String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
+        //String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
 
-        CSVWriter csv_writer = new CSVWriter(headers);
+        String [] header_array = new String[headers.size()];
+        header_array = headers.toArray(header_array);
+        
+        CSVWriter csv_writer = new CSVWriter(header_array);
 
         try {
             csv_writer.write(outputPathFile, outputRecords);
@@ -105,11 +114,14 @@ public class GenerateStatements {
 
     public void outputAsExcel(String outputPathFile) {
 
-        String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
+        //String[] headers = {"AXIOM TYPE", "AXIOM", "NATURAL LANGUAGE TRANSLATION"};
+        
+        String [] header_array = new String[headers.size()];
+        header_array = headers.toArray(header_array);
 
-        ExcelWriter xl_writer = new ExcelWriter(headers);
+        ExcelWriter xl_writer = new ExcelWriter(header_array);
 
-        xl_writer.write(outputPathFile, outputRecords, headers);
+        xl_writer.write(outputPathFile, outputRecords, header_array);
 
     }
 
@@ -154,11 +166,13 @@ public class GenerateStatements {
                         if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_fix = llm.executeLLMEnhancement(output_record.getNatural_language(), axiom.getAxiomType().toString());
                             output_record.setLLMNaturalLanguageTranslation(llm_fix);
+                            headers.add("LLM Enhancement");
                         }
                         
                         if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
                             output_record.setFactInformation(llm_results);
+                            headers.add("Fact Check");
                         }
 
 
