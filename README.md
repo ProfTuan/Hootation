@@ -10,7 +10,9 @@ Hootation is an ontology verbalization tool that was at first conceived to help 
 
 Hootation was developed in Java 17 using Apache Netbeans, along with supporting APIs (such as OWL API, Apache Jena, SimpleNLG), and reused code initially developed by the Agile Knowledge Engineering and Semantic Web (AKSW) Research Group. 
 
+## Installation and Building
 
+After cloning the repository, use [NetBeans IDE](https://netbeans.apache.org/front/main/index.html). Click "Clean and Build" (F11) and click "Run Project" (F6).
 
 ## License
 
