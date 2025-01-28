@@ -462,6 +462,8 @@ public class HootationUI extends javax.swing.JFrame {
     
     public void setLLMModelPath(String value){
         this.llmModelPath = value;
+        
+        LLMConfiguration.getInstance().setModelFilePath(value);
     }
     
     private void selectButtonFromMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonFromMainActionPerformed
@@ -665,8 +667,7 @@ public class HootationUI extends javax.swing.JFrame {
         FileDialog filedialog = new FileDialog(this, "Choose the model", FileDialog.LOAD);
         filedialog.setVisible(true);
         String filePath = filedialog.getDirectory()+ filedialog.getFile();
-       
-        
+
         
         this.txtModelPath.setText(filePath);
         
