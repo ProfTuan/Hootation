@@ -2,6 +2,8 @@
 
 *under development...check back later*
 
+[![Developed with NetBeans](https://img.shields.io/static/v1?label=Developed%20with&message=NetBeans&color=#9OD5FF&style=flat)](https://netbeans.apache.org/front/main/index.html/)
+
 <img src="https://forthebadge.com/images/badges/made-with-java.svg"/>
 
 <img src="https://img.shields.io/badge/apache%20netbeans-1B6AC6?style=for-the-badge&logo=apache%20netbeans%20IDE&logoColor=white"/>
