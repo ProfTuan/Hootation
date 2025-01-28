@@ -2,7 +2,7 @@
 
 *under development...check back later*
 
-[![Developed with NetBeans](https://img.shields.io/static/v1?label=Developed%20with&message=NetBeans&color=#9OD5FF&style=flat)](https://netbeans.apache.org/front/main/index.html/)
+[![Developed with NetBeans](https://img.shields.io/static/v1?label=Developed%20with&message=NetBeans&color=lightskyblue&style=flat)](https://netbeans.apache.org/front/main/index.html/)
 
 <img src="https://forthebadge.com/images/badges/made-with-java.svg"/>
 
