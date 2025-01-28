@@ -2,11 +2,9 @@
 
 *under development...check back later*
 
-[![Developed with NetBeans](https://img.shields.io/static/v1?label=Developed%20with&message=NetBeans&color=lightskyblue&style=flat)](https://netbeans.apache.org/front/main/index.html/)
+[![IDE NetBeans](https://img.shields.io/static/v1?label=IDE&message=NetBeans&color=lightskyblue&style=flat)](https://netbeans.apache.org/front/main/index.html/) [![Developed with Java](https://img.shields.io/static/v1?label=Developed%20with&message=Java&color=red&style=flat)]
 
-<img src="https://forthebadge.com/images/badges/made-with-java.svg"/>
 
-<img src="https://img.shields.io/badge/apache%20netbeans-1B6AC6?style=for-the-badge&logo=apache%20netbeans%20IDE&logoColor=white"/>
 
 Hootation is an ontology verbalization tool that was at first conceived to help in extrinsically evaluating ontologies and knowledge graphs encoded in OWL or RDF. Hootation takes each OWL logical axiom and converts them into natural language text to allow subject matter experts to assess each encoded statement within the artifact's knowledge base. This current iterative release provides a desktop GUI to circumvent the use of command line and some large language model support.
 
