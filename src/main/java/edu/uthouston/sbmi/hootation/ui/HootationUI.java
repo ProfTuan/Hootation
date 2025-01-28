@@ -31,6 +31,7 @@ public class HootationUI extends javax.swing.JFrame {
     
     private  DefaultListModel llm_list = new DefaultListModel();
     private Map<String, String> llmList;
+    private String llmModelPath = "";
 
     /**
      * Creates new form HootationUI
@@ -350,6 +351,11 @@ public class HootationUI extends javax.swing.JFrame {
         jLabel3.setText("Model Parameter Set Up:");
 
         jButton4.setText("Select Model");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         txtModelPath.setEditable(false);
         txtModelPath.setText("[Selected Model Path]");
@@ -450,6 +456,16 @@ public class HootationUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_excelOptionActionPerformed
 
+    public String getLLMModelPath(){
+        return this.llmModelPath;
+    }
+    
+    public void setLLMModelPath(String value){
+        this.llmModelPath = value;
+        
+        LLMConfiguration.getInstance().setModelFilePath(value);
+    }
+    
     private void selectButtonFromMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonFromMainActionPerformed
         // TODO add your handling code here:
         
@@ -644,6 +660,22 @@ public class HootationUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(ckLLMFactChecking.isEnabled()) this.doFactChecking = ckLLMFactChecking.isSelected();
     }//GEN-LAST:event_ckLLMFactCheckingActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        
+        FileDialog filedialog = new FileDialog(this, "Choose the model", FileDialog.LOAD);
+        filedialog.setVisible(true);
+        String filePath = filedialog.getDirectory()+ filedialog.getFile();
+
+        
+        this.txtModelPath.setText(filePath);
+        
+        this.printToConsole("Selected model: " + filePath, Color.BLUE);
+        
+        this.setLLMModelPath(filePath);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -151,14 +151,14 @@ public class GenerateStatements {
                         output_record.setNatural_language(output);
                         
                         
-                        if(gui.performRefinement()){
+                        if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_fix = llm.executeLLMEnhancement(output_record.getNatural_language(), axiom.getAxiomType().toString());
                             output_record.setLLMNaturalLanguageTranslation(llm_fix);
                         }
                         
-                        if(gui.performFactChecking()){
+                        if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
-                            
+                            output_record.setFactInformation(llm_results);
                         }
 
 
