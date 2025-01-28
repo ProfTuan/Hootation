@@ -12,7 +12,7 @@ Hootation was developed in Java 17 using Apache Netbeans, along with supporting 
 
 ## Installation and Building
 
-After cloning the repository, use [NetBeans IDE](https://netbeans.apache.org/front/main/index.html). Click "Clean and Build" (F11) and click "Run Project" (F6).
+After cloning the repository, use [NetBeans IDE](https://netbeans.apache.org/front/main/index.html) (download and install). Open the directory of the cloned repository with NetBeans. Click "Clean and Build" (F11) and click "Run Project" (F6).
 
 ## License
 
