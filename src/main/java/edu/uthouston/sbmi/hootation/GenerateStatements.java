@@ -143,6 +143,15 @@ public class GenerateStatements {
         try {
             OWLOntology ontology = man.loadOntologyFromOntologyDocument(ontologyFile);
             OWLAxiomConverter converter = new OWLAxiomConverter(ontology);
+            
+            if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
+                llm.initializeLLMModelEnrichement();
+            }
+            
+            if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
+                llm.initializeLLMModelFactChecker();
+            }
+            
 
             for (OWLAxiom axiom : ontology.getAxioms()) {
                 if (axiom.isLogicalAxiom()) {
