@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -40,6 +42,7 @@ public class HootationUI extends javax.swing.JFrame {
     public HootationUI() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.populateLLMDownloadList();
     }
 
     /**
@@ -528,6 +531,8 @@ public class HootationUI extends javax.swing.JFrame {
     private void modelSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelSavePathActionPerformed
         // TODO add your handling code here:
         
+        
+        
         FileDialog saveDialogModel = new FileDialog(this, "Choose a location to save the model", FileDialog.SAVE);
         saveDialogModel.setVisible(true);
         
@@ -644,12 +649,10 @@ public class HootationUI extends javax.swing.JFrame {
         
     }
     
-    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
-        // TODO add your handling code here:
+    private void populateLLMDownloadList(){
+        
         LLMConfiguration llm_config = LLMConfiguration.getInstance();
-        
-        
-        
+
         llmList = llm_config.collectLLMList();
         
         
@@ -669,6 +672,11 @@ public class HootationUI extends javax.swing.JFrame {
         this.txtGPULayer.setText(layers +"");
         this.txtPredictionLength.setText(predictNumber + "");
         this.txtThreads.setText(numThreads + "");
+ 
+    }
+    
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+        // TODO add your handling code here:
         
         
         
@@ -704,16 +712,31 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void btnLLMDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLLMDownloadActionPerformed
         // TODO add your handling code here:
-        
-        LLMDownloadProcess download_process = new LLMDownloadProcess();
-        download_process.setParent(this);
-        download_process.start();
-        
+
+        if (!lstLLM.isSelectionEmpty()) {
+
+            System.out.println(lstLLM.getSelectedValue());
+            System.out.println(this.llmList.get(lstLLM.getSelectedValue()));
+
+            LLMDownloadProcess download_process = new LLMDownloadProcess();
+            download_process.setParent(this);
+            download_process.setDownloadURL(this.llmList.get(lstLLM.getSelectedValue()).trim());
+            download_process.start();
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a LLM Model from the list");
+        }
+
+
     }//GEN-LAST:event_btnLLMDownloadActionPerformed
 
     class LLMDownloadProcess extends Thread{
         private HootationUI parent = null;
         
+        private String llm_url = "";
+        
+        public void setDownloadURL(String url){
+            llm_url = url;
+        }
         
         public void setParent(HootationUI _parent){
             parent = _parent;
@@ -726,7 +749,7 @@ public class HootationUI extends javax.swing.JFrame {
             LLMConfiguration llm_config = LLMConfiguration.getInstance();
             
             
-            llm_a.retrieveLLMModel(llm_config.getModelFilePath(), parent.getUserSelectedLLMDirectory(), parent.outputPanel);
+            llm_a.retrieveLLMModel(llm_url, parent.getUserSelectedLLMDirectory(), parent.outputPanel);
             
             parent.printToConsole("Download complete", Color.BLUE);
         }
