@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -72,7 +71,7 @@ public class HootationUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnLLMDownload = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstLLM = new javax.swing.JList<>();
         jButton9 = new javax.swing.JButton();
@@ -292,7 +291,12 @@ public class HootationUI extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextField1.setText("[Model save path]");
 
-        jButton3.setText("Download");
+        btnLLMDownload.setText("Download");
+        btnLLMDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLLMDownloadActionPerformed(evt);
+            }
+        });
 
         lstLLM.setModel(llm_list);
         jScrollPane2.setViewportView(lstLLM);
@@ -317,7 +321,7 @@ public class HootationUI extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addGroup(panelLLMDownloadLayout.createSequentialGroup()
                         .addGroup(panelLLMDownloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLLMDownload, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -341,7 +345,7 @@ public class HootationUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton10)))
                 .addGap(12, 12, 12)
-                .addComponent(jButton3)
+                .addComponent(btnLLMDownload)
                 .addContainerGap(111, Short.MAX_VALUE))
         );
 
@@ -563,7 +567,7 @@ public class HootationUI extends javax.swing.JFrame {
                 gs.outputAsExcel(gui.pathTextExportFromMain.getText());
             }
             
-            JOptionPane.showMessageDialog(gui, "Generation complelted");
+            //JOptionPane.showMessageDialog(gui, "Generation complelted");
             
             
             gui.printToConsole("Generation is completed", Color.BLUE);
@@ -677,6 +681,31 @@ public class HootationUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btnLLMDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLLMDownloadActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_btnLLMDownloadActionPerformed
+
+    class LLMDownloadProcess extends Thread{
+        private HootationUI parent = null;
+        
+        
+        public void setParent(HootationUI _parent){
+            parent = _parent;
+        }
+        
+        @Override
+        public void run(){
+            
+            //LLMManagement llm_m = LLMManagement.getInstance();
+            
+            
+            
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -707,6 +736,7 @@ public class HootationUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerateTranslation;
+    private javax.swing.JButton btnLLMDownload;
     private javax.swing.JCheckBox ckLLM;
     private javax.swing.JCheckBox ckLLMFactChecking;
     private javax.swing.JCheckBox ckLLMRefinement;
@@ -714,7 +744,6 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton excelOption;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;

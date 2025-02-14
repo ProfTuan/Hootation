@@ -134,7 +134,7 @@ public class GenerateStatements {
 
         outputRecords = new ArrayList<OutputRecord>();
         //outputContent = new StringBuilder();
-        LLMAdapter llm = new LLMAdapter();
+        LLMAdapter llm = LLMAdapter.getInstance();
         DLSyntaxObjectRenderer renderer = new DLSyntaxObjectRenderer();
         ToStringRenderer.setRenderer(() -> renderer);
 
