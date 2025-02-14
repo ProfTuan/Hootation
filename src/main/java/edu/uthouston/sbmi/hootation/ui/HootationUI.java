@@ -32,7 +32,8 @@ public class HootationUI extends javax.swing.JFrame {
     private  DefaultListModel llm_list = new DefaultListModel();
     private Map<String, String> llmList;
     private String llmModelPath = "";
-
+    
+    private String saveLLMModelPath = "";
     /**
      * Creates new form HootationUI
      */
@@ -70,7 +71,7 @@ public class HootationUI extends javax.swing.JFrame {
         ckLLMFactChecking = new javax.swing.JCheckBox();
         panelLLMDownload = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btSaveModelPath = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btnLLMDownload = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -160,7 +161,9 @@ public class HootationUI extends javax.swing.JFrame {
                             .addComponent(csvOption))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(excelOption)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(excelOption)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(pathTextExportFromMain))))
                 .addContainerGap())
         );
@@ -175,13 +178,13 @@ public class HootationUI extends javax.swing.JFrame {
                     .addComponent(pathTextFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pathTextExportFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveToButtonFromMain))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(csvOption)
                     .addComponent(excelOption))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveToButtonFromMain)
-                    .addComponent(pathTextExportFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         btnGenerateTranslation.setText("Generate Translation");
@@ -272,9 +275,9 @@ public class HootationUI extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(llmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGenerateTranslation)
-                .addContainerGap())
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hootation", panelHootation);
@@ -282,8 +285,8 @@ public class HootationUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setText("Choice of the Model to Download:");
 
-        jButton2.setText("Save Model To");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btSaveModelPath.setText("Save Model To");
+        btSaveModelPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modelSavePathActionPerformed(evt);
             }
@@ -323,7 +326,7 @@ public class HootationUI extends javax.swing.JFrame {
                     .addGroup(panelLLMDownloadLayout.createSequentialGroup()
                         .addGroup(panelLLMDownloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnLLMDownload, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btSaveModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(287, Short.MAX_VALUE))
@@ -339,7 +342,7 @@ public class HootationUI extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelLLMDownloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
+                            .addComponent(btSaveModelPath)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelLLMDownloadLayout.createSequentialGroup()
                         .addComponent(jButton9)
@@ -491,7 +494,7 @@ public class HootationUI extends javax.swing.JFrame {
         
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.SAVE);
         filedialog.setVisible(true);
-        
+        filedialog.setFile("*.csv;*.xlsx");
         
         String fileName = filedialog.getFile();
         if(csvOption.isSelected()){
@@ -516,6 +519,12 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void modelSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelSavePathActionPerformed
         // TODO add your handling code here:
+        
+        FileDialog saveDialogModel = new FileDialog(this, "Choose a location to save the model", FileDialog.SAVE);
+        saveDialogModel.setVisible(true);
+        
+        String savePath = saveDialogModel.getFile();
+        
     }//GEN-LAST:event_modelSavePathActionPerformed
 
     private void btnGenerateTranslationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTranslationActionPerformed
@@ -719,9 +728,6 @@ public class HootationUI extends javax.swing.JFrame {
         try {
          
             
-            
-            //UIManager.setLookAndFeel( new FlatDarkLaf() );
-            
             UIManager.setLookAndFeel(new FlatLightLaf());
             
             
@@ -741,6 +747,7 @@ public class HootationUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSaveModelPath;
     private javax.swing.JButton btnGenerateTranslation;
     private javax.swing.JButton btnLLMDownload;
     private javax.swing.JCheckBox ckLLM;
@@ -749,7 +756,6 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton csvOption;
     private javax.swing.JRadioButton excelOption;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
