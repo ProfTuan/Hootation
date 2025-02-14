@@ -72,7 +72,7 @@ public class HootationUI extends javax.swing.JFrame {
         panelLLMDownload = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btSaveModelPath = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtSaveLLMModelLocation = new javax.swing.JTextField();
         btnLLMDownload = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstLLM = new javax.swing.JList<>();
@@ -292,8 +292,7 @@ public class HootationUI extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setEditable(false);
-        jTextField1.setText("[Model save path]");
+        txtSaveLLMModelLocation.setEditable(false);
 
         btnLLMDownload.setText("Download");
         btnLLMDownload.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +327,7 @@ public class HootationUI extends javax.swing.JFrame {
                             .addComponent(btnLLMDownload, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btSaveModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSaveLLMModelLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(287, Short.MAX_VALUE))
         );
         panelLLMDownloadLayout.setVerticalGroup(
@@ -343,7 +342,7 @@ public class HootationUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelLLMDownloadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btSaveModelPath)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtSaveLLMModelLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelLLMDownloadLayout.createSequentialGroup()
                         .addComponent(jButton9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -464,6 +463,15 @@ public class HootationUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_excelOptionActionPerformed
 
+    
+    public String getUserSelectedLLMDirectory(){
+        return this.saveLLMModelPath;
+    }
+    
+    public void setUserSelectedLLMDirectory(String path){
+        this.saveLLMModelPath = path;
+    }
+    
     public String getLLMModelPath(){
         return this.llmModelPath;
     }
@@ -523,7 +531,10 @@ public class HootationUI extends javax.swing.JFrame {
         FileDialog saveDialogModel = new FileDialog(this, "Choose a location to save the model", FileDialog.SAVE);
         saveDialogModel.setVisible(true);
         
-        String savePath = saveDialogModel.getFile();
+        String savePath = saveDialogModel.getDirectory();
+        
+        this.txtSaveLLMModelLocation.setText(savePath);
+        this.setUserSelectedLLMDirectory(savePath);
         
     }//GEN-LAST:event_modelSavePathActionPerformed
 
@@ -715,7 +726,7 @@ public class HootationUI extends javax.swing.JFrame {
             LLMConfiguration llm_config = LLMConfiguration.getInstance();
             
             
-            llm_a.retrieveLLMModel(llm_config.getModelFilePath(), "", parent.outputPanel);
+            llm_a.retrieveLLMModel(llm_config.getModelFilePath(), parent.getUserSelectedLLMDirectory(), parent.outputPanel);
             
             parent.printToConsole("Download complete", Color.BLUE);
         }
@@ -769,7 +780,6 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel llmPanel;
     private javax.swing.JList<String> lstLLM;
     private javax.swing.ButtonGroup modeldownloadOption;
@@ -785,6 +795,7 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JTextField txtGPULayer;
     private javax.swing.JTextField txtModelPath;
     private javax.swing.JTextField txtPredictionLength;
+    private javax.swing.JTextField txtSaveLLMModelLocation;
     private javax.swing.JTextField txtThreads;
     // End of variables declaration//GEN-END:variables
 }
