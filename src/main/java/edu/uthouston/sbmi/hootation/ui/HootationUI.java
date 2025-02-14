@@ -7,6 +7,7 @@ package edu.uthouston.sbmi.hootation.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import edu.uthouston.sbmi.hootation.GenerateStatements;
+import edu.utmb.semantic.llmenrichment.LLMAdapter;
 
 import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
 import java.awt.Color;
@@ -684,7 +685,9 @@ public class HootationUI extends javax.swing.JFrame {
     private void btnLLMDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLLMDownloadActionPerformed
         // TODO add your handling code here:
         
-        
+        LLMDownloadProcess download_process = new LLMDownloadProcess();
+        download_process.setParent(this);
+        download_process.start();
         
     }//GEN-LAST:event_btnLLMDownloadActionPerformed
 
@@ -699,10 +702,13 @@ public class HootationUI extends javax.swing.JFrame {
         @Override
         public void run(){
             
-            //LLMManagement llm_m = LLMManagement.getInstance();
+            LLMAdapter llm_a = LLMAdapter.getInstance();
+            LLMConfiguration llm_config = LLMConfiguration.getInstance();
             
             
+            llm_a.retrieveLLMModel(llm_config.getModelFilePath(), "", parent.outputPanel);
             
+            parent.printToConsole("Download complete", Color.BLUE);
         }
         
     }
