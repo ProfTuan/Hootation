@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -464,6 +463,13 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void excelOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelOptionActionPerformed
         // TODO add your handling code here:
+        String text = this.pathTextExportFromMain.getText();
+        text = (String) text.substring(0, text.lastIndexOf(".")-1);
+        
+        text = text.concat(".xlsx");
+        
+        this.pathTextExportFromMain.setText(text);
+        
     }//GEN-LAST:event_excelOptionActionPerformed
 
     
@@ -505,9 +511,12 @@ public class HootationUI extends javax.swing.JFrame {
         
         FileDialog filedialog = new FileDialog(this, "Choose a location to save", FileDialog.SAVE);
         filedialog.setVisible(true);
-        filedialog.setFile("*.csv;*.xlsx");
+        filedialog.setFile("");
         
-        String fileName = filedialog.getFile();
+        
+        String fileName = (filedialog.getFile() != null) ? filedialog.getFile() : "fileName"; 
+        
+        
         if(csvOption.isSelected()){
             fileName = fileName + ".csv";
         }
@@ -526,6 +535,15 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void csvOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvOptionActionPerformed
         // TODO add your handling code here:
+        
+        String text = this.pathTextExportFromMain.getText();
+        text = (String) text.substring(0, text.lastIndexOf(".")-1);
+        
+        text = text.concat(".csv");
+        
+        this.pathTextExportFromMain.setText(text);
+        
+        
     }//GEN-LAST:event_csvOptionActionPerformed
 
     private void modelSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelSavePathActionPerformed
@@ -534,7 +552,10 @@ public class HootationUI extends javax.swing.JFrame {
         
         
         FileDialog saveDialogModel = new FileDialog(this, "Choose a location to save the model", FileDialog.SAVE);
+        
+        //saveDialogModel.setDirectory(llmModelPath);
         saveDialogModel.setVisible(true);
+        
         
         String savePath = saveDialogModel.getDirectory();
         
