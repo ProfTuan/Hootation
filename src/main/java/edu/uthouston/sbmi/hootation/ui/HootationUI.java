@@ -5,6 +5,8 @@
 package edu.uthouston.sbmi.hootation.ui;
 
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import edu.uthouston.sbmi.hootation.GenerateStatements;
 import edu.utmb.semantic.llmenrichment.LLMAdapter;
@@ -783,7 +785,7 @@ public class HootationUI extends javax.swing.JFrame {
         try {
          
             
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
             
             
             
