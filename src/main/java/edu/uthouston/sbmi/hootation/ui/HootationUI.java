@@ -44,6 +44,9 @@ public class HootationUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.populateLLMDownloadList();
+        
+        //hide the download LLM
+        this.tabbedPane.remove(1);
     }
 
     /**
@@ -57,7 +60,7 @@ public class HootationUI extends javax.swing.JFrame {
 
         outputOptions = new javax.swing.ButtonGroup();
         modeldownloadOption = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         panelHootation = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -67,6 +70,7 @@ public class HootationUI extends javax.swing.JFrame {
         pathTextExportFromMain = new javax.swing.JTextField();
         csvOption = new javax.swing.JRadioButton();
         excelOption = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
         btnGenerateTranslation = new javax.swing.JButton();
         ckLLM = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
@@ -97,9 +101,9 @@ public class HootationUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+        tabbedPane.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTabbedPane1FocusGained(evt);
+                tabbedPaneFocusGained(evt);
             }
         });
 
@@ -145,6 +149,9 @@ public class HootationUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel8.setText("Set up output export (File format and file name)");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -153,22 +160,22 @@ public class HootationUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(selectButtonFromMain)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pathTextFromMain, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
+                        .addComponent(saveToButtonFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pathTextExportFromMain))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(csvOption)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(excelOption))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(saveToButtonFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(csvOption))
+                        .addComponent(selectButtonFromMain)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(excelOption)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(pathTextExportFromMain))))
+                        .addComponent(pathTextFromMain)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -181,14 +188,16 @@ public class HootationUI extends javax.swing.JFrame {
                     .addComponent(selectButtonFromMain)
                     .addComponent(pathTextFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pathTextExportFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveToButtonFromMain))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(csvOption)
                     .addComponent(excelOption))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveToButtonFromMain)
+                    .addComponent(pathTextExportFromMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         btnGenerateTranslation.setText("Generate Translation");
@@ -207,7 +216,7 @@ public class HootationUI extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
-        jLabel7.setText("N.B. Ensure you downloaded a LLM model. Refer to LLM tabs for configuration");
+        jLabel7.setText("N.B. Ensure you downloaded a LLM model. Refer to LLM Configuration for to set parameters");
 
         llmPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -262,7 +271,7 @@ public class HootationUI extends javax.swing.JFrame {
                             .addGroup(panelHootationLayout.createSequentialGroup()
                                 .addComponent(btnGenerateTranslation)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)))
                     .addGroup(panelHootationLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(llmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -281,10 +290,10 @@ public class HootationUI extends javax.swing.JFrame {
                 .addComponent(llmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGenerateTranslation)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Hootation", panelHootation);
+        tabbedPane.addTab("Hootation", panelHootation);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setText("Choice of the Model to Download:");
@@ -353,10 +362,10 @@ public class HootationUI extends javax.swing.JFrame {
                         .addComponent(jButton10)))
                 .addGap(12, 12, 12)
                 .addComponent(btnLLMDownload)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("LLM Download", panelLLMDownload);
+        tabbedPane.addTab("LLM Download", panelLLMDownload);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel3.setText("Model Parameter Set Up:");
@@ -396,18 +405,18 @@ public class HootationUI extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(txtModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtThreads, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelLLMConfigurationLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPredictionLength, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(284, Short.MAX_VALUE))
+                        .addGap(8, 8, 8)
+                        .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPredictionLength, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                .addComponent(txtThreads)))))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
         panelLLMConfigurationLayout.setVerticalGroup(
             panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,7 +427,7 @@ public class HootationUI extends javax.swing.JFrame {
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(txtModelPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(93, 93, 93)
+                .addGap(18, 18, 18)
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -430,10 +439,10 @@ public class HootationUI extends javax.swing.JFrame {
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPredictionLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("LLM Configuration", panelLLMConfiguration);
+        tabbedPane.addTab("LLM Configuration", panelLLMConfiguration);
 
         outputPanel.setColumns(20);
         outputPanel.setRows(5);
@@ -446,7 +455,7 @@ public class HootationUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(tabbedPane)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -454,7 +463,7 @@ public class HootationUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -698,13 +707,13 @@ public class HootationUI extends javax.swing.JFrame {
  
     }
     
-    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+    private void tabbedPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabbedPaneFocusGained
         // TODO add your handling code here:
         
         
         
         
-    }//GEN-LAST:event_jTabbedPane1FocusGained
+    }//GEN-LAST:event_tabbedPaneFocusGained
 
     private void ckLLMRefinementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMRefinementActionPerformed
         // TODO add your handling code here:
@@ -822,10 +831,10 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel llmPanel;
     private javax.swing.JList<String> lstLLM;
     private javax.swing.ButtonGroup modeldownloadOption;
@@ -838,6 +847,7 @@ public class HootationUI extends javax.swing.JFrame {
     private javax.swing.JTextField pathTextFromMain;
     private javax.swing.JButton saveToButtonFromMain;
     private javax.swing.JButton selectButtonFromMain;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField txtGPULayer;
     private javax.swing.JTextField txtModelPath;
     private javax.swing.JTextField txtPredictionLength;
