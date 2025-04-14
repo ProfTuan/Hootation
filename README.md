@@ -1,10 +1,6 @@
 # Hootation
 
-*under development...check back later*
-
 [![IDE NetBeans](https://img.shields.io/static/v1?label=IDE&message=NetBeans&color=lightskyblue&style=flat)](https://netbeans.apache.org/front/main/index.html/) [![Developed with Java](https://img.shields.io/static/v1?label=Developed%20with&message=Java&color=red&style=flat)]
-
-
 
 Hootation is an ontology verbalization tool that was at first conceived to help in extrinsically evaluating ontologies and knowledge graphs encoded in OWL or RDF. Hootation takes each OWL logical axiom and converts them into natural language text to allow subject matter experts to assess each encoded statement within the artifact's knowledge base. This current iterative release provides a desktop GUI to circumvent the use of command line and some large language model support.
 
@@ -16,7 +12,7 @@ Hootation was developed in Java 17 using Apache Netbeans, along with supporting 
 
 ### Requirements
 
-You need to [LLMEnrichmentLib](https://github.com/ProfTuan/LLMEnhancementLib). Install and build per instructions before proceeding with the build.
+Ensure that you have JDK 17 or higher installed.
 
 ### Build
 After cloning the repository, use [NetBeans IDE](https://netbeans.apache.org/front/main/index.html) (download and install). Open the directory of the cloned repository with NetBeans. Click "Clean and Build" (F11) and click "Run Project" (F6).
@@ -28,7 +24,7 @@ Hootation is released under the GPLv3 (or later) license. See license for more d
 ## Developers
 
 - Tuan Amith
-- Hubing Xao
+- Hubing Xao (LLM contribution)
 
 ## Publications
 
