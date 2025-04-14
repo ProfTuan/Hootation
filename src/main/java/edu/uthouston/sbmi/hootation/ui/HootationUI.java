@@ -378,7 +378,6 @@ public class HootationUI extends javax.swing.JFrame {
         });
 
         txtModelPath.setEditable(false);
-        txtModelPath.setText("[Selected Model Path]");
 
         jLabel4.setText("GPU Layers:");
 
@@ -581,32 +580,39 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void btnGenerateTranslationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTranslationActionPerformed
         // TODO add your handling code here:
-        
+
         this.printToConsole("Generating statements... \n", Color.BLUE);
-        
-     
+
         //get llm parameters
-        if(this.ckLLM.isSelected()){
-            
-            if(this.ckLLMRefinement.isSelected() && this.ckLLMRefinement.isEnabled()){
+        if (this.ckLLM.isSelected()) {
+
+            if (this.ckLLMRefinement.isSelected() && this.ckLLMRefinement.isEnabled()) {
                 this.printToConsole("User specified LLM refinement of sentences", Color.BLUE);
+            } else {
+                if (isLLMSetUp() == false) {
+                    JOptionPane.showMessageDialog(this, "The LLM model is not identified. Navigate to the LLM Configuration panel to set this up.");
+                    return;
+                }
             }
-            
-            if(this.ckLLMFactChecking.isSelected() && this.ckLLMFactChecking.isEnabled()){
+
+            if (this.ckLLMFactChecking.isSelected() && this.ckLLMFactChecking.isEnabled()) {
                 this.printToConsole("User specified fact checking of statements", Color.BLUE);
+            } else {
+                if (isLLMSetUp() == false) {
+                    JOptionPane.showMessageDialog(this, "The LLM model is not identified. Navigate to the LLM Configuration panel to set this up.");
+                    return;
+                }
             }
-            
+
             this.printToConsole("Getting LLM configuration...", Color.BLUE);
             this.getUserLLMParameters();
         }
-        
-        
+
         GenerateStatementProcess gs_process = new GenerateStatementProcess();
         gs_process.setParent(this);
         gs_process.start();
-        
-        
-       
+
+
     }//GEN-LAST:event_btnGenerateTranslationActionPerformed
 
     class GenerateStatementProcess extends Thread{
@@ -645,7 +651,16 @@ public class HootationUI extends javax.swing.JFrame {
         
     }
     
-    
+    private boolean isLLMSetUp(){
+        if(txtModelPath.getText().isBlank()){
+            
+           
+            
+            return false;
+        }
+        
+        return true;
+    }
     
     public boolean performFactChecking(){
         return doFactChecking;
@@ -657,6 +672,11 @@ public class HootationUI extends javax.swing.JFrame {
     
     private void ckLLMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckLLMActionPerformed
         // TODO add your handling code here:
+        
+        if(isLLMSetUp() == false){
+             JOptionPane.showMessageDialog(this, "The LLM model is not identified. Navigate to the LLM Configuration panel to set this up.");
+             
+        }
         
         if(ckLLM.isSelected()){
             llmPanel.setEnabled(true);

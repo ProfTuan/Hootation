@@ -552,7 +552,6 @@
             <Component class="javax.swing.JTextField" name="txtModelPath">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
-                <Property name="text" type="java.lang.String" value="[Selected Model Path]"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
