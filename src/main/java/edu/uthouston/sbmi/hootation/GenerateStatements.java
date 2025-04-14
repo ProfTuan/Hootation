@@ -180,6 +180,7 @@ public class GenerateStatements {
                         
                         if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
+                            //llm.executeFactChecking(outputRecords);
                             output_record.setFactInformation(llm_results);
                             headers.add("Fact Check");
                         }
