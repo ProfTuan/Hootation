@@ -1,5 +1,6 @@
 package edu.uthouston.sbmi.hootation;
 
+import edu.uthouston.sbmi.hootation.llmenrichment.LLMAdapter;
 import edu.uthouston.sbmi.hootation.models.OutputRecord;
 import java.io.File;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import edu.uthouston.sbmi.hootation.owl2nl.OWLAxiomConverter;
 import edu.uthouston.sbmi.hootation.ui.HootationUI;
 import edu.uthouston.sbmi.hootation.util.CSVWriter;
 import edu.uthouston.sbmi.hootation.util.ExcelWriter;
-import edu.utmb.semantic.llmenrichment.LLMAdapter;
+
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -174,14 +175,14 @@ public class GenerateStatements {
                         
                         if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_fix = llm.executeLLMEnhancement(output_record.getNatural_language(), axiom.getAxiomType().toString());
-                            output_record.setLLMNaturalLanguageTranslation(llm_fix);
+                            //output_record.setLLMNaturalLanguageTranslation(llm_fix);
                             headers.add("LLM Enhancement");
                         }
                         
                         if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
-                            //llm.executeFactChecking(outputRecords);
-                            output_record.setFactInformation(llm_results);
+                            
+                            //output_record.setFactInformation(llm_results);
                             headers.add("Fact Check");
                         }
 

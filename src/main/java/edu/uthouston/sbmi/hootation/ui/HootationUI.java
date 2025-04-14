@@ -9,9 +9,9 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import edu.uthouston.sbmi.hootation.GenerateStatements;
-import edu.utmb.semantic.llmenrichment.LLMAdapter;
+import edu.uthouston.sbmi.hootation.llmenrichment.LLMAdapter;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
 
-import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
 import java.awt.Color;
 import java.awt.FileDialog;
 import java.io.File;

@@ -4,7 +4,7 @@
  */
 package edu.uthouston.sbmi.hootation.models;
 
-import edu.utmb.semantic.llmenrichment.model.NLAxiomData;
+import edu.uthouston.sbmi.hootation.llmenrichment.model.NLAxiomData;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 

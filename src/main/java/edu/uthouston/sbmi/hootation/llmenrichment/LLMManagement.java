@@ -4,7 +4,7 @@
  */
 package edu.uthouston.sbmi.hootation.llmenrichment;
 
-import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -23,8 +23,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 
 /**
  *

@@ -5,7 +5,7 @@
 package edu.uthouston.sbmi.hootation.llmenrichment.model;
 
 import de.kherud.llama.args.MiroStat;
-import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
 
 /**
  *

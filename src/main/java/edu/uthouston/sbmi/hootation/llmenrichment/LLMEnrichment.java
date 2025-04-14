@@ -8,11 +8,11 @@ import de.kherud.llama.LlamaModel;
 import de.kherud.llama.LlamaOutput;
 import de.kherud.llama.ModelParameters;
 import de.kherud.llama.args.MiroStat;
-import edu.utmb.semantic.llmenrichment.model.LLMParameters;
-import edu.utmb.semantic.llmenrichment.model.NLAxiomData;
-import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
+import edu.uthouston.sbmi.hootation.llmenrichment.model.LLMParameters;
+import edu.uthouston.sbmi.hootation.llmenrichment.model.NLAxiomData;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.Reporter;
 
-import edu.utmb.semantic.llmenrichment.util.Reporter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

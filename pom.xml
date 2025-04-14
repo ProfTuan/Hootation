@@ -2,39 +2,39 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>edu.uthouston.sbmi</groupId>
-  <artifactId>Hootation</artifactId>
-  <version>1.0</version>
-  <packaging>jar</packaging>
+    <groupId>edu.uthouston.sbmi</groupId>
+    <artifactId>Hootation</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
 
-  <name>Hootation</name>
-  <url>http://www.example.com</url>
+    <name>Hootation</name>
+    <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <java.version>17</java.version>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-    <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
-    <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <java.version>17</java.version>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.7.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <version>5.7.1</version>
-      <scope>test</scope>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
 
         
         <dependency> 
@@ -78,10 +78,10 @@
         </dependency>
         
         <dependency>
-  <groupId>com.formdev</groupId>
-  <artifactId>flatlaf-intellij-themes</artifactId>
-  <version>3.5.4</version>
-</dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>3.5.4</version>
+        </dependency>
         
         <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-distribution -->
         <dependency>
@@ -130,11 +130,11 @@
             <version>3.6.0</version>
         </dependency>-->
         <!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
-<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>4.5.8</version>
-</dependency>
+        <dependency>
+            <groupId>edu.stanford.nlp</groupId>
+            <artifactId>stanford-corenlp</artifactId>
+            <version>4.5.8</version>
+        </dependency>
 
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
@@ -173,6 +173,19 @@
             <version>2.0.16</version>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>de.kherud</groupId>
+            <artifactId>llama</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
+<dependency>
+    <groupId>com.opencsv</groupId>
+    <artifactId>opencsv</artifactId>
+    <version>5.10</version>
+</dependency>
 
         <!--
         <dependency>
@@ -186,77 +199,72 @@
             <artifactId>log4j-core</artifactId>
             <version>2.23.1</version>
         </dependency>
-    <dependency>
-      <groupId>edu.utmb.semantic</groupId>
-      <artifactId>LLMEnrichment</artifactId>
-      <version>0.50</version>
-    </dependency>
-  </dependencies>
+    </dependencies>
   
   
 
-  <build>
-      <finalName>hootation</finalName>
-      <resources>
+    <build>
+        <finalName>hootation</finalName>
+        <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
-    <plugins>
+        <plugins>
         
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>${maven-compiler-plugin.version}</version>
-            <configuration>
-                <release>${java.version}</release>
-                <showDeprecation>true</showDeprecation>
-                <showWarnings>true</showWarnings>
-                <verbose>false</verbose>
-            </configuration>
-        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <release>${java.version}</release>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <verbose>false</verbose>
+                </configuration>
+            </plugin>
 
         
-        <!--
-        
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-            <version>${maven-jar-plugin.version}</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                <classpathPrefix>libs/</classpathPrefix>
-                        <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-      </plugin>
-      -->
-              <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <configuration>
-                <shadedArtifactAttached>true</shadedArtifactAttached>
-                <transformers>
-                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
-                    </transformer>
-                </transformers>
-                <finalName>hootation-distribution</finalName>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+            <!--
+              
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jar-plugin</artifactId>
+                  <version>${maven-jar-plugin.version}</version>
+                  <configuration>
+                      <archive>
+                          <manifest>
+                              <addClasspath>true</addClasspath>
+                      <classpathPrefix>libs/</classpathPrefix>
+                              <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
+                          </manifest>
+                      </archive>
+                  </configuration>
+            </plugin>
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>edu.uthouston.sbmi.hootation.ui.HootationUI</mainClass>
+                        </transformer>
+                    </transformers>
+                    <finalName>hootation-distribution</finalName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
       
-    </plugins>
-  </build>
+        </plugins>
+    </build>
 </project>

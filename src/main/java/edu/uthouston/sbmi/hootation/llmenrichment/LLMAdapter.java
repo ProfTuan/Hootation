@@ -4,8 +4,9 @@
  */
 package edu.uthouston.sbmi.hootation.llmenrichment;
 
+
 import de.kherud.llama.ModelParameters;
-import edu.utmb.semantic.llmenrichment.model.NLAxiomData;
+import edu.uthouston.sbmi.hootation.llmenrichment.model.NLAxiomData;
 import java.util.ArrayList;
 import java.util.Set;
 import javax.swing.JTextArea;
@@ -74,7 +75,7 @@ public class LLMAdapter {
         //set up parameter
         
         //execute
-        llm_fact_checker.checkSentenceAccuracy(records);
+        //llm_fact_checker.checkSentenceAccuracy(records);
         
     }
     
@@ -99,7 +100,7 @@ public class LLMAdapter {
         //set up parameters
         
         //execute
-        llm_enrichment.translateAxioms(records);
+        //llm_enrichment.translateAxioms(records);
     }
     
     public static void main(String[] args) {

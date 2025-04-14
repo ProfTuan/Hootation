@@ -5,12 +5,13 @@
 package edu.uthouston.sbmi.hootation.llmenrichment.util;
 
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-import com.opencsv.exceptions.CsvException;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

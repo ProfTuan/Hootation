@@ -4,7 +4,8 @@
  */
 package edu.uthouston.sbmi.hootation.llmenrichment.model;
 
-import edu.utmb.semantic.llmenrichment.util.LLMConfiguration;
+import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
+
 
 /**
  *
