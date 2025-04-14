@@ -22,6 +22,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -47,6 +48,9 @@ public class HootationUI extends javax.swing.JFrame {
         
         //hide the download LLM
         this.tabbedPane.remove(1);
+        
+        DefaultCaret caret = (DefaultCaret)outputPanel.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
     /**
@@ -474,15 +478,19 @@ public class HootationUI extends javax.swing.JFrame {
     private void excelOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelOptionActionPerformed
         // TODO add your handling code here:
         String text = this.pathTextExportFromMain.getText();
-        text = (String) text.substring(0, text.lastIndexOf(".")-1);
-        
-        text = text.concat(".xlsx");
-        
-        this.pathTextExportFromMain.setText(text);
-        
+
+        if (text.isBlank()) {
+            text = (String) text.substring(0, text.lastIndexOf(".") - 1);
+
+            text = text.concat(".xlsx");
+
+            this.pathTextExportFromMain.setText(text);
+        }
+
+
     }//GEN-LAST:event_excelOptionActionPerformed
 
-    
+
     public String getUserSelectedLLMDirectory(){
         return this.saveLLMModelPath;
     }
@@ -549,15 +557,18 @@ public class HootationUI extends javax.swing.JFrame {
 
     private void csvOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvOptionActionPerformed
         // TODO add your handling code here:
-        
+
         String text = this.pathTextExportFromMain.getText();
-        text = (String) text.substring(0, text.lastIndexOf(".")-1);
-        
-        text = text.concat(".csv");
-        
-        this.pathTextExportFromMain.setText(text);
-        
-        
+
+        if (text.isBlank()) {
+            text = (String) text.substring(0, text.lastIndexOf(".") - 1);
+
+            text = text.concat(".csv");
+
+            this.pathTextExportFromMain.setText(text);
+        }
+
+
     }//GEN-LAST:event_csvOptionActionPerformed
 
     private void modelSavePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelSavePathActionPerformed
@@ -617,6 +628,8 @@ public class HootationUI extends javax.swing.JFrame {
 
     class GenerateStatementProcess extends Thread{
         
+        //ProcessWin processing_window = new ProcessWin(this, true);
+        
         private HootationUI gui = null;
         
         public void setParent(HootationUI _parent){
@@ -625,6 +638,11 @@ public class HootationUI extends javax.swing.JFrame {
         
         @Override
         public void run(){
+            
+            //ProcessWin processing_window = new ProcessWin(gui, true);
+            
+            //processing_window.setVisible(true);
+            
             GenerateStatements gs = GenerateStatements.getInstance();
             gs.generateStatementsFromAxioms(new File(gui.pathTextFromMain.getText()), this.gui);
             
@@ -638,7 +656,9 @@ public class HootationUI extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(gui, "Generation complelted");
             
             
-            gui.printToConsole("Generation is completed", Color.BLUE);
+            gui.printToConsole("\n\nPROCESSING IS COMPLETED.", Color.BLUE);
+            
+            //processing_window.setVisible(false);
         }
         
     }

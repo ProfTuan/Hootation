@@ -201,22 +201,30 @@ public class GenerateStatements {
             
             //refinement
              if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
+                 
+                 gui.printToConsole("\n\nPreparing LLM enrichment....Please wait", Color.RED);
+                 
                  llm.initLLMEnrichment();
                  
                  headers.add("LLM ENHANCEMENT");
                  
                  llm.executeLLMEnhancement(outputRecords);
+                 
+                 gui.printToConsole("\nLLM enrichment completed.", Color.RED);
              }
             
             //fact checking option
             if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
+                
+                gui.printToConsole("\n\nPreparing LLM fact checking.... Please wait", Color.RED);
+                
                 llm.initFactChecker();
                 
                 headers.add("FACT CHECK");
                 
                 llm.executeFactChecking(outputRecords);
                 
-                
+                gui.printToConsole("\nLLM fact checking completed.", Color.RED);
             }
             
             
