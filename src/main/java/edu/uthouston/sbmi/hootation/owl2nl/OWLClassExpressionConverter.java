@@ -1382,6 +1382,8 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
 	}
 	
 	public String getPropertyLabel(OWLDataPropertyExpression property){
+                System.out.println("from getPropertyLabel: " + property);
+            
 		String label = "";
                 StringBuilder sb = new StringBuilder();
                 EntitySearcher.getAnnotations(property.asOWLDataProperty(), sourceOntology, df.getRDFSLabel()).forEach(ov->{
@@ -1396,6 +1398,12 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
                 
                 label = sb.toString().trim();
 		
+                if(label.trim().isBlank()){
+                    label = property.toString();
+                    System.out.println("frm getPropertyLabel: label is " + label);
+                }
+                
+                
                 /* 
                 OLD OWLAPI 4
 		for(OWLAnnotation a : EntitySearcher.getAnnotations(property.asOWLDataProperty(), 
@@ -1433,8 +1441,15 @@ OWLIndividualVisitorEx<NLGElement>, OWLDataRangeVisitorEx<NLGElement>, OWLProper
                         });
                 
                 
+                
+                
                 label = sb.toString().trim();
 		
+                if(label.trim().isBlank()){
+                    label = property.toString();
+                    System.out.println("line1450: from getPropertyLabel: label is " + label);
+                }
+                
                 /* OLD OWLAPI 4
 		for(OWLAnnotation a : EntitySearcher.getAnnotations(property.asOWLObjectProperty(), 
 				this.sourceOntology, df.getRDFSLabel())) {

@@ -525,7 +525,7 @@ public class HootationUI extends javax.swing.JFrame {
         filedialog.setFile("");
         
         
-        String fileName = (filedialog.getFile() != null) ? filedialog.getFile() : "fileName"; 
+        String fileName = (filedialog.getFile() != null) ? filedialog.getFile().toString() : "fileName"; 
         
         
         if(csvOption.isSelected()){

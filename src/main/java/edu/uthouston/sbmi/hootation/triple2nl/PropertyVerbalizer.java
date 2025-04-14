@@ -91,8 +91,8 @@ public class PropertyVerbalizer {
 
 		//normalize the text, e.g. to lower case
 		propertyText = normalize(propertyText);
-    	
-		//System.out.println("property text:" + propertyText);
+                //System.out.println("property uri.... " + propertyURI);
+		//System.out.println("property text:.... " + propertyText);
     	//try to use linguistic information
     	PropertyVerbalization propertyVerbalization = getTypeByLinguisticAnalysis(propertyURI, propertyText);
     	
@@ -114,6 +114,10 @@ public class PropertyVerbalizer {
     }
     
     public PropertyVerbalization verbalize(String propertyURI, String label){
+        
+        System.out.println("TEST OBSERVE ..."+propertyURI);
+        System.out.println("TEST OBSERVE ..."+label);
+        
     	logger.debug("Getting lexicalization type for \"" + propertyURI + "\"...");
     	
 		//get textual representation for the property URI
@@ -337,6 +341,8 @@ public class PropertyVerbalizer {
     
 	private PropertyVerbalization getTypeByLinguisticAnalysis(String propertyURI, String propertyText) {
 		logger.debug("...using linguistical analysis...");
+                
+                System.out.println("TESTING..." + propertyText);
                 
                 Annotation document = new Annotation(propertyText);
 		pipeline.annotate(document);
