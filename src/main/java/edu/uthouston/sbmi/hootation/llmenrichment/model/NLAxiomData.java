@@ -33,7 +33,7 @@ public class NLAxiomData {
     }
     
     public String getFactInformation(){
-        return this.llm_fact_information;
+        return this.llm_fact_information.replaceAll("\n", " ");
     }
     
     public void setNLTranslation(String natural_language){
@@ -53,7 +53,7 @@ public class NLAxiomData {
     }
     
     public String getLLMNaturalLanguageTranslation(){
-        return this.llm_natural_language_translation;
+        return this.llm_natural_language_translation.replaceAll("\n", " ");
     }
     
 }

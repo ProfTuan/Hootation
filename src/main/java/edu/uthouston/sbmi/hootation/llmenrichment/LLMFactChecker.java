@@ -14,6 +14,7 @@ import edu.uthouston.sbmi.hootation.llmenrichment.model.LLMParameters;
 import edu.uthouston.sbmi.hootation.llmenrichment.model.NLAxiomData;
 import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
 import edu.uthouston.sbmi.hootation.llmenrichment.util.Reporter;
+import edu.uthouston.sbmi.hootation.models.OutputRecord;
 import java.io.IOException;
 
 
@@ -147,15 +148,15 @@ public class LLMFactChecker {
     }
     
     
-    public void checkSentenceAccuracy(ArrayList<NLAxiomData> records){
-        StringBuilder results = new StringBuilder();
+    public void checkSentenceAccuracy(ArrayList<OutputRecord> records){
         
-        final String template_prompt = "You are a helpful assistant\n. User: Evaluate the accuracy of the ontology axiom's natural langauge translation. The axiom type is : [axiom_type]. The axiom is: [axiom]. Is the translation accurate? (Only answer Yes, No, or Don't know):";
+        LLMConfiguration llmconfig = LLMConfiguration.getInstance();
+        final String template_prompt = "You are a helpful assistant\n. User: Evaluate the accuracy of the statement. The statement is: [axiom]. Is this statement factually accurate? (Only answer TRUE, FALSE, or DON'T KNOW):";
         
-        modelParams = new ModelParameters();
-        modelParams.setModel(llm_parameters.getFileModelPath());
-        modelParams.setThreads(llm_parameters.getNThreads());
-        modelParams.setGpuLayers(llm_parameters.getNGpuLayers());
+        //modelParams = new ModelParameters();
+        //modelParams.setModel(llm_parameters.getFileModelPath());
+        //modelParams.setThreads(llm_parameters.getNThreads());
+        //modelParams.setGpuLayers(llm_parameters.getNGpuLayers());
         
         /*modelParams.setModelFilePath(llm_parameters.getFileModelPath());
         modelParams.setNThreads(llm_parameters.getNThreads());
@@ -163,30 +164,32 @@ public class LLMFactChecker {
         
         try (LlamaModel model = new LlamaModel(modelParams)) {
             
-            for(NLAxiomData record : records){
-                
+            for(OutputRecord record : records){
+                StringBuilder results = new StringBuilder();
                 String prompt_temp = template_prompt
-                        .replaceAll("\\[axiom_type\\]", record.getAxiomType().toString())
-                        .replaceAll("\\[axiom\\]", record.getNLTranslation());
+                        //.replaceAll("\\[axiom_type\\]", record.getAxiomType().toString())
+                        .replaceAll("\\[axiom\\]", record.getNatural_language());
                 
                 inferParams = new InferenceParameters(prompt_temp)
-                        .setTemperature(llm_parameters.getTemperature())
-                        .setPenalizeNl(llm_parameters.getShouldPenalize())
-                        .setMiroStat(llm_parameters.getMiroStatVersion())
+                        .setTemperature(llmconfig.getTemperature())
+                        .setPenalizeNl(llmconfig.getShouldPenalize())
+                        .setMiroStat(llmconfig.getMiroStatType())
                         .setStopStrings("User:")
-                        .setNPredict(llm_parameters.getNPredict());
+                        .setNPredict(llmconfig.predictNumber());
 
                 
                 for(LlamaOutput output: model.generate(inferParams)){
                     System.out.println(output);
                     results.append(output);
+                    
                 }
                 
+                record.setFactInformation(results.toString());
             }
             
         }
         
-        System.out.println(results.toString());
+        //System.out.println(results.toString());
         
     }
     

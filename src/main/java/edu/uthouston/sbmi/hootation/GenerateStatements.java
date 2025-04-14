@@ -49,6 +49,7 @@ public class GenerateStatements {
         headers.add("AXIOM");
         headers.add( "NATURAL LANGUAGE TRANSLATION");
         
+        
     }
 
     public static GenerateStatements getInstance() {
@@ -106,7 +107,7 @@ public class GenerateStatements {
         CSVWriter csv_writer = new CSVWriter(header_array);
 
         try {
-            csv_writer.write(outputPathFile, outputRecords);
+            csv_writer.write(outputPathFile, outputRecords, header_array);
         } catch (IOException ex) {
             Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,26 +173,53 @@ public class GenerateStatements {
                         output_record.setAxiom_type(axiom.getAxiomType());
                         output_record.setNatural_language(output);
                         
+                        /*
                         
                         if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
                             String llm_fix = llm.executeLLMEnhancement(output_record.getNatural_language(), axiom.getAxiomType().toString());
                             //output_record.setLLMNaturalLanguageTranslation(llm_fix);
                             headers.add("LLM Enhancement");
                         }
+                        */
                         
+                        /*
                         if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
-                            String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
-                            
+                            //String llm_results =llm.excecuteFactChecking(output_record.getNatural_language(), axiom.getAxiomType().toString());
+                            llm.executeFactChecking(outputRecords);
                             //output_record.setFactInformation(llm_results);
                             headers.add("Fact Check");
                         }
-
+                        */
 
                         outputRecords.add(output_record);
 
                     }
                 }
             }
+            
+            //add the LLM improvements
+            
+            //refinement
+             if(gui.performRefinement() && !gui.getLLMModelPath().trim().isBlank()){
+                 llm.initLLMEnrichment();
+                 
+                 headers.add("LLM ENHANCEMENT");
+                 
+                 llm.executeLLMEnhancement(outputRecords);
+             }
+            
+            //fact checking option
+            if(gui.performFactChecking() && !gui.getLLMModelPath().trim().isBlank()){
+                llm.initFactChecker();
+                
+                headers.add("FACT CHECK");
+                
+                llm.executeFactChecking(outputRecords);
+                
+                
+            }
+            
+            
 
         } catch (OWLOntologyCreationException ex) {
             Logger.getLogger(GenerateStatements.class.getName()).log(Level.SEVERE, null, ex);

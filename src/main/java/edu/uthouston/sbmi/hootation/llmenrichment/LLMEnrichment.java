@@ -12,6 +12,7 @@ import edu.uthouston.sbmi.hootation.llmenrichment.model.LLMParameters;
 import edu.uthouston.sbmi.hootation.llmenrichment.model.NLAxiomData;
 import edu.uthouston.sbmi.hootation.llmenrichment.util.LLMConfiguration;
 import edu.uthouston.sbmi.hootation.llmenrichment.util.Reporter;
+import edu.uthouston.sbmi.hootation.models.OutputRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,8 +151,10 @@ public class LLMEnrichment
         
     }
             
-    public void translateAxioms(ArrayList<NLAxiomData> records){
-        StringBuilder results = new StringBuilder();
+    public void translateAxioms(ArrayList<OutputRecord> records){
+        
+        LLMConfiguration llmconfig = LLMConfiguration.getInstance();
+        
         final String template_prompt = "You are a helpful assistant\n. User: Please translate the ontology axiom using natural langauge. The axiom type is: [axiom_type]. The axiom you need to translate is:  [axiom] . Your translation for this axiom is (Just state your translation in one sentence. Do not add any other statements):";
         
         modelParams = new ModelParameters();
@@ -168,11 +171,11 @@ public class LLMEnrichment
         
         try(LlamaModel model = new LlamaModel(modelParams)){
             
-            for(NLAxiomData record: records){
-                
+            for(OutputRecord record: records){
+                StringBuilder results = new StringBuilder();
                 String prompt_temp = template_prompt
-                        .replaceAll("\\[axiom_type\\]", record.getAxiomType().toString())
-                        .replaceAll("\\[axiom\\]", record.getNLTranslation());
+                        .replaceAll("\\[axiom_type\\]", record.getAxiom_type().toString())
+                        .replaceAll("\\[axiom\\]", record.getNatural_language());
                 
                 
                 inferParams = new InferenceParameters(prompt_temp)
@@ -186,13 +189,14 @@ public class LLMEnrichment
                 for(LlamaOutput output: model.generate(inferParams)){
                     System.out.println(output);
                     results.append(output);
+                    
                 }
-               
+               record.setLLMNaturalLanguageTranslation(results.toString());
             }
             
         }
         
-        System.out.println(results.toString());
+        
         
     }
     

@@ -33,9 +33,9 @@ public class OutputRecord extends NLAxiomData{
                 return axiom.toString();
             case "NATURAL LANGUAGE TRANSLATION":
                 return natural_language;
-            case "LLM Enhancement":
+            case "LLM ENHANCEMENT":
                 return this.getLLMNaturalLanguageTranslation();
-            case "Fact Check":
+            case "FACT CHECK":
                 return this.getFactInformation();
             default:
                 return "ERROR";
