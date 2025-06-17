@@ -151,7 +151,9 @@ public class LLMFactChecker {
     public void checkSentenceAccuracy(ArrayList<OutputRecord> records){
         
         LLMConfiguration llmconfig = LLMConfiguration.getInstance();
-        final String template_prompt = "You are a helpful assistant\n. User: Evaluate the accuracy of the statement. The statement is: [axiom]. Is this statement factually accurate? (Only answer TRUE, FALSE, or DON'T KNOW):";
+        //final String template_prompt = "You are a helpful assistant\n. User: Evaluate the accuracy of the statement. The statement is: [axiom]. Is this statement factually accurate? (Only answer TRUE, FALSE, or DON'T KNOW):";
+        
+        final String template_prompt ="Evaluate the accuracy of the statement: [axiom]. Is this sentence factually true, false, or don't know. Answer the request only with a \"Yes\", \"No\", or \"Don't Know\". Do not provide explanation.";
         
         //modelParams = new ModelParameters();
         //modelParams.setModel(llm_parameters.getFileModelPath());
