@@ -153,7 +153,7 @@ public class LLMFactChecker {
         LLMConfiguration llmconfig = LLMConfiguration.getInstance();
         //final String template_prompt = "You are a helpful assistant\n. User: Evaluate the accuracy of the statement. The statement is: [axiom]. Is this statement factually accurate? (Only answer TRUE, FALSE, or DON'T KNOW):";
         
-        final String template_prompt ="Evaluate the accuracy of the statement: [axiom]. Is this sentence factually true, false, or don't know. Answer the request only with a \"Yes\", \"No\", or \"Don't Know\". Do not provide explanation.";
+        final String template_prompt ="User: Evaluate the accuracy of the statement: [statement]. Is this sentence factually true, false, or don't know. Answer the request only with a \"Yes\", \"No\", or \"Don't Know\". Do not provide explanation.";
         
         //modelParams = new ModelParameters();
         //modelParams.setModel(llm_parameters.getFileModelPath());
@@ -170,7 +170,7 @@ public class LLMFactChecker {
                 StringBuilder results = new StringBuilder();
                 String prompt_temp = template_prompt
                         //.replaceAll("\\[axiom_type\\]", record.getAxiomType().toString())
-                        .replaceAll("\\[axiom\\]", record.getNatural_language());
+                        .replaceAll("\\[statement\\]", record.getNatural_language());
                 
                 inferParams = new InferenceParameters(prompt_temp)
                         .setTemperature(llmconfig.getTemperature())

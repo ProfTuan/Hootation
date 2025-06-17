@@ -41,6 +41,9 @@ public class LLMConfiguration {
     private String rootPath;
 
     private Properties property = new Properties();
+    
+    final private String PROMPT_FACT_CHECK = "User: Evaluate the accuracy of the statement: [statement]. Is this sentence factually true, false, or don't know. Answer the request only with a \"Yes\", \"No\", or \"Don't Know\". Do not provide explanation.";
+    final private String PROMPT_TRANSLATION = "You are a helpful assistant\n. User: Please translate the ontology axiom using natural langauge. The axiom type is: [axiom_type]. The axiom you need to translate is:  [axiom] . Your translation for this axiom should be one sentence and do not add an explaination.";
 
     private LLMConfiguration() {
 
@@ -56,6 +59,14 @@ public class LLMConfiguration {
         }
 
         init();
+    }
+    
+    public String getPROMPT_FACT_CHECK(){
+        return PROMPT_FACT_CHECK;
+    }
+    
+    public String getPROMPT_TRANSLATION(){
+        return PROMPT_TRANSLATION;
     }
 
     public static LLMConfiguration getInstance() {

@@ -497,6 +497,10 @@
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnFactCheck" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnTranslation" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="288" max="32767" attributes="0"/>
                   </Group>
@@ -527,7 +531,11 @@
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtPredictionLength" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnTranslation" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnFactCheck" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="79" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -583,6 +591,22 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="[Enter]"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnTranslation">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modify Translation Prompt"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTranslationActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnFactCheck">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modify Fact Checking Prompt"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFactCheckActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

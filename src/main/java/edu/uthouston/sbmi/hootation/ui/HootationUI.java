@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -38,6 +39,14 @@ public class HootationUI extends javax.swing.JFrame {
     private String llmModelPath = "";
     
     private String saveLLMModelPath = "";
+    
+    
+    private String fact_checking_prompt = "";
+    private String axiom_translation_prompt = "";
+    
+    
+    
+    
     /**
      * Creates new form HootationUI
      */
@@ -48,6 +57,12 @@ public class HootationUI extends javax.swing.JFrame {
         
         //hide the download LLM
         this.tabbedPane.remove(1);
+        
+        //add default prompts
+        
+        fact_checking_prompt = LLMConfiguration.getInstance().getPROMPT_FACT_CHECK();
+        
+        axiom_translation_prompt = LLMConfiguration.getInstance().getPROMPT_TRANSLATION();
         
         DefaultCaret caret = (DefaultCaret)outputPanel.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -100,6 +115,8 @@ public class HootationUI extends javax.swing.JFrame {
         txtThreads = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPredictionLength = new javax.swing.JTextField();
+        btnTranslation = new javax.swing.JButton();
+        btnFactCheck = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         outputPanel = new javax.swing.JTextArea();
 
@@ -395,6 +412,20 @@ public class HootationUI extends javax.swing.JFrame {
 
         txtPredictionLength.setText("[Enter]");
 
+        btnTranslation.setText("Modify Translation Prompt");
+        btnTranslation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTranslationActionPerformed(evt);
+            }
+        });
+
+        btnFactCheck.setText("Modify Fact Checking Prompt");
+        btnFactCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFactCheckActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLLMConfigurationLayout = new javax.swing.GroupLayout(panelLLMConfiguration);
         panelLLMConfiguration.setLayout(panelLLMConfigurationLayout);
         panelLLMConfigurationLayout.setHorizontalGroup(
@@ -418,7 +449,10 @@ public class HootationUI extends javax.swing.JFrame {
                             .addComponent(txtGPULayer, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtPredictionLength, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                .addComponent(txtThreads)))))
+                                .addComponent(txtThreads))))
+                    .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnFactCheck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTranslation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(288, Short.MAX_VALUE))
         );
         panelLLMConfigurationLayout.setVerticalGroup(
@@ -442,7 +476,11 @@ public class HootationUI extends javax.swing.JFrame {
                 .addGroup(panelLLMConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPredictionLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnTranslation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFactCheck)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("LLM Configuration", panelLLMConfiguration);
@@ -805,6 +843,43 @@ public class HootationUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLLMDownloadActionPerformed
 
+    private void btnTranslationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTranslationActionPerformed
+        // TODO add your handling code here:
+        
+        final FactCheckingDialog fd = new FactCheckingDialog(this, true);
+        fd.setAlwaysOnTop(true);
+        fd.setLocationRelativeTo(null);
+        
+        //fd.setInstructionsForFactChecking(this.);
+        fd.setInstructionsForEnrichment(this.axiom_translation_prompt);
+        
+        fd.setVisible(true);
+        
+    }//GEN-LAST:event_btnTranslationActionPerformed
+
+    private void btnFactCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFactCheckActionPerformed
+        // TODO add your handling code here:
+        final FactCheckingDialog fd = new FactCheckingDialog(this, true);
+        fd.setAlwaysOnTop(true);
+        fd.setLocationRelativeTo(null);
+        
+        fd.setInstructionsForFactChecking(this.fact_checking_prompt);
+        
+        
+        fd.setVisible(true);
+        
+        
+        
+    }//GEN-LAST:event_btnFactCheckActionPerformed
+
+    public void setFactCheckingPrompt(String value_prompt){
+        fact_checking_prompt = value_prompt;
+    }
+    
+    public void setAxiomTranslationPrompt(String value_prompt){
+        axiom_translation_prompt = value_prompt;
+    }
+    
     class LLMDownloadProcess extends Thread{
         private HootationUI parent = null;
         
@@ -858,8 +933,10 @@ public class HootationUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSaveModelPath;
+    private javax.swing.JButton btnFactCheck;
     private javax.swing.JButton btnGenerateTranslation;
     private javax.swing.JButton btnLLMDownload;
+    private javax.swing.JButton btnTranslation;
     private javax.swing.JCheckBox ckLLM;
     private javax.swing.JCheckBox ckLLMFactChecking;
     private javax.swing.JCheckBox ckLLMRefinement;
