@@ -1,0 +1,4 @@
+name, url
+LLAMA-7b.Q2_K, https://huggingface.co/TheBloke/CodeLlama-7B-GGUF/resolve/main/codellama-7b.Q2_K.gguf
+LLAMA-7b.Q4_K, https://huggingface.co/TheBloke/CodeLlama-7B-GGUF/resolve/main/codellama-7b.Q4_K.gguf 
+LLAMA-7b.Q5_K, https://huggingface.co/TheBloke/CodeLlama-7B-GGUF/resolve/main/codellama-7b.Q5_K.gguf
